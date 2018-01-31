@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gsccs.cmcc.merchant.dao.TerminalMapper" >
+  <resultMap id="BaseResultMap" type="com.gsccs.cmcc.info.model.Terminal" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="tersn" property="tersn" jdbcType="VARCHAR" />
+    <result column="orderno" property="orderno" jdbcType="VARCHAR" />
+    <result column="terno" property="terno" jdbcType="VARCHAR" />
+    <result column="mchno" property="mchno" jdbcType="VARCHAR" />
+    <result column="brands" property="brands" jdbcType="VARCHAR" />
+    <result column="modelno" property="modelno" jdbcType="VARCHAR" />
+    <result column="pgmv" property="pgmv" jdbcType="VARCHAR" />
+    <result column="jointime" property="jointime" jdbcType="TIMESTAMP" />
+    <result column="edittime" property="edittime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    
+    <result column="curryear" property="curryear" jdbcType="INTEGER" />
+    <result column="finayear" property="finayear" jdbcType="INTEGER" />
+    <result column="curstore" property="curstore" jdbcType="VARCHAR" />
+    <result column="substore" property="substore" jdbcType="VARCHAR" />
+    <result column="area" property="area" jdbcType="VARCHAR" />
+    <result column="locgoods" property="locgoods" jdbcType="VARCHAR" />
+    <result column="locdate" property="locdate" jdbcType="TIMESTAMP" />
+    <result column="locyear" property="locyear" jdbcType="INTEGER" />
+    <result column="loststate" property="loststate" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="ordernum" property="ordernum" jdbcType="INTEGER" />
+    
+    <!--  -->
+     <result column="statusname" property="statusname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, mchno, tersn, terno,orderno, brands,modelno, curryear,finayear,curstore,substore,area,locgoods,locdate,locyear,loststate,userid,jointime, edittime, status, remark, pgmv, ordernum
+  </sql>
+  
+  <select id="selectPageByExample" resultMap="BaseResultMap" parameterType="com.gsccs.cmcc.info.model.TerminalExample" >
+    select *
+    from bicp_terminal
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    order by ordernum 
+    limit ${skip},${pageSize}
+  </select>
+  
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gsccs.cmcc.info.model.TerminalExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from bicp_terminal
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from bicp_terminal
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from bicp_terminal
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gsccs.cmcc.info.model.TerminalExample" >
+    delete from bicp_terminal
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gsccs.cmcc.info.model.Terminal" >
+    insert into bicp_terminal (id, mchno, tersn, terno, orderno,
+      brands,modelno,
+      jointime, edittime, 
+	  status, remark, 
+      pgmv, ordernum)
+    values (#{id,jdbcType=VARCHAR}, 
+    	#{mchno,jdbcType=VARCHAR}, 
+      #{tersn,jdbcType=VARCHAR}, 
+      #{terno,jdbcType=VARCHAR},
+      #{orderno,jdbcType=VARCHAR}, 
+      #{brands,jdbcType=VARCHAR}, 
+      #{modelno,jdbcType=VARCHAR},
+      #{jointime,jdbcType=TIMESTAMP}, 
+      #{edittime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, 
+      #{pgmv,jdbcType=VARCHAR}, 
+      #{ordernum,jdbcType=INTEGER})
+  </insert>
+  
+  <select id="countByExample" parameterType="com.gsccs.cmcc.info.model.TerminalExample" resultType="java.lang.Integer" >
+    select count(*) from bicp_terminal
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  
+  <update id="updateByExample" parameterType="map" >
+    update bicp_terminal
+    set id = #{record.id,jdbcType=VARCHAR},
+      mchno = #{record.mchno,jdbcType=VARCHAR},
+      orderno = #{record.orderno,jdbcType=VARCHAR},
+      tersn = #{record.tersn,jdbcType=VARCHAR},
+      terno = #{record.terno,jdbcType=VARCHAR},
+      brands = #{record.brands,jdbcType=VARCHAR},
+      modelno = #{record.modelno,jdbcType=VARCHAR},
+      jointime = #{record.jointime,jdbcType=TIMESTAMP},
+      edittime = #{record.edittime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      pgmv = #{record.pgmv,jdbcType=VARCHAR},
+      ordernum = #{record.ordernum,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gsccs.cmcc.info.model.Terminal" >
+    update bicp_terminal
+    <set >
+      <if test="mchno != null" >
+        mchno = #{mchno,jdbcType=VARCHAR},
+      </if>
+      <if test="orderno != null" >
+        orderno = #{orderno,jdbcType=VARCHAR},
+      </if>
+      <if test="tersn != null" >
+        tersn = #{tersn,jdbcType=VARCHAR},
+      </if>
+      <if test="terno != null" >
+        terno = #{terno,jdbcType=VARCHAR},
+      </if>
+      <if test="brands != null" >
+        brands = #{brands,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null" >
+        model = #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="softVer != null" >
+        soft_ver = #{softVer,jdbcType=REAL},
+      </if>
+      <if test="jointime != null" >
+        jointime = #{jointime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="edittime != null" >
+        edittime = #{edittime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="ordernum != null" >
+        ordernum = #{ordernum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gsccs.cmcc.info.model.Terminal" >
+    update bicp_terminal
+    set mchno = #{mchno,jdbcType=VARCHAR},
+      tersn = #{tersn,jdbcType=VARCHAR},
+      terno = #{terno,jdbcType=VARCHAR},
+      orderno = #{orderno,jdbcType=VARCHAR},
+      brands = #{brands,jdbcType=VARCHAR},
+      modelno = #{modelno,jdbcType=VARCHAR},
+      pgmv = #{pgmv,jdbcType=VARCHAR},
+      curryear = #{curryear,jdbcType=INTEGER},
+      finayear = #{finayear,jdbcType=INTEGER},
+      curstore = #{curstore,jdbcType=VARCHAR},
+      substore = #{substore,jdbcType=VARCHAR},
+      loststate = #{loststate,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      locgoods = #{locgoods,jdbcType=VARCHAR},
+      locdate = #{locdate,jdbcType=TIMESTAMP},
+      locyear = #{locyear,jdbcType=INTEGER},
+      userid = #{userid,jdbcType=VARCHAR},
+      jointime = #{jointime,jdbcType=TIMESTAMP},
+      edittime = now(),
+      status = #{status,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      ordernum = #{ordernum,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gsccs.cmcc.data.dao.TradeVspMapper">
+	<resultMap id="BaseResultMap" type="com.gsccs.cmcc.data.model.TradeVsp">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="mchno" property="mchno" jdbcType="VARCHAR" />
+		<result column="tmlno" property="tmlno" jdbcType="VARCHAR" />
+		<result column="paytime" property="paytime" jdbcType="TIMESTAMP" />
+		<result column="payamount" property="payamount" jdbcType="VARCHAR" />
+		<result column="payfee" property="payfee" jdbcType="INTEGER" />
+		<result column="paytype" property="paytype" jdbcType="VARCHAR" />
+		<result column="enddate" property="enddate" jdbcType="TIMESTAMP" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<!-- -->
+		<result column="mchname" property="mchname" jdbcType="VARCHAR" />
+		<result column="ispname" property="ispname" jdbcType="VARCHAR" />
+		<result column="linename" property="linename" jdbcType="VARCHAR" />
+		<result column="payname" property="payname" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		id, mchno, tmlno, paytime, payamount, payfee, paynum, paytype,enddate
+	</sql>
+
+	<sql id="Join_Column_List">
+		ispname,linename,mchname
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.gsccs.cmcc.data.model.TradeVspExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from bicp_tradevsp
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+
+
+	<select id="selectPageByExample" resultMap="BaseResultMap"
+		parameterType="com.gsccs.cmcc.data.model.TradeVspExample">
+		select *
+		from bicp_tradevsp
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+		limit ${skip},${pageSize}
+	</select>
+	
+	
+	<select id="selectCountByExample" resultMap="BaseResultMap"
+		parameterType="com.gsccs.cmcc.data.model.TradeVspExample">
+		select mch_no,count(payamount) as payamount,count(payfee) as payfee,sum(id) as paynum
+		from bicp_tradevsp
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+		limit ${skip},${pageSize}
+	</select>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from bicp_tradevsp
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from bicp_tradevsp
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.gsccs.cmcc.data.model.TradeVspExample">
+		delete from bicp_tradevsp
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.gsccs.cmcc.data.model.TradeVsp">
+		insert into bicp_tradevsp (id, mch_no, hasline,
+		paytime, payamount, payfee,
+		feemonth, paytype, signdate,
+		enddate, remark,
+		ftollsum)
+		values (#{id,jdbcType=VARCHAR}, #{mch_no,jdbcType=VARCHAR},
+		#{hasline,jdbcType=VARCHAR},
+		#{paytime,jdbcType=VARCHAR}, #{payamount,jdbcType=VARCHAR}, #{payfee,jdbcType=INTEGER},
+		#{feemonth,jdbcType=VARCHAR}, #{paytype,jdbcType=VARCHAR},
+		#{signdate,jdbcType=TIMESTAMP},
+		#{enddate,jdbcType=TIMESTAMP}, #{paydate,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR},
+		#{ftollsum,jdbcType=REAL})
+	</insert>
+
+	<select id="countByExample" parameterType="com.gsccs.cmcc.data.model.TradeVspExample"
+		resultType="java.lang.Integer">
+		select count(*)
+		from bicp_tradevsp
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	
+	
+	<update id="updateByExampleSelective" parameterType="map">
+		update bicp_tradevsp
+		<set>
+			<if test="record.id != null">
+				id = #{record.id,jdbcType=VARCHAR},
+			</if>
+			<if test="record.mch_no != null">
+				mch_no = #{record.mch_no,jdbcType=VARCHAR},
+			</if>
+			<if test="record.hasline != null">
+				hasline = #{record.hasline,jdbcType=VARCHAR},
+			</if>
+			<if test="record.paytime != null">
+				paytime = #{record.paytime,jdbcType=VARCHAR},
+			</if>
+			<if test="record.payamount != null">
+				payamount = #{record.payamount,jdbcType=VARCHAR},
+			</if>
+			<if test="record.payfee != null">
+				payfee = #{record.payfee,jdbcType=INTEGER},
+			</if>
+			<if test="record.feemonth != null">
+				feemonth = #{record.feemonth,jdbcType=VARCHAR},
+			</if>
+			<if test="record.paytype != null">
+				paytype = #{record.paytype,jdbcType=VARCHAR},
+			</if>
+			<if test="record.signdate != null">
+				signdate = #{record.signdate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.enddate != null">
+				enddate = #{record.enddate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.paydate != null">
+				paydate = #{record.paydate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.remark != null">
+				remark = #{record.remark,jdbcType=VARCHAR},
+			</if>
+			<if test="record.agreeimg != null">
+				agreeimg = #{record.agreeimg,jdbcType=VARCHAR},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update bicp_tradevsp
+		set id = #{record.id,jdbcType=VARCHAR},
+		mch_no = #{record.mch_no,jdbcType=VARCHAR},
+		hasline = #{record.hasline,jdbcType=VARCHAR},
+		paytime = #{record.paytime,jdbcType=VARCHAR},
+		payamount = #{record.payamount,jdbcType=VARCHAR},
+		payfee = #{record.payfee,jdbcType=INTEGER},
+		feemonth = #{record.feemonth,jdbcType=VARCHAR},
+		paytype = #{record.paytype,jdbcType=VARCHAR},
+		signdate = #{record.signdate,jdbcType=TIMESTAMP},
+		enddate = #{record.enddate,jdbcType=TIMESTAMP},
+		paydate = #{record.paydate,jdbcType=TIMESTAMP},
+		remark = #{record.remark,jdbcType=VARCHAR},
+		ftollsum = #{record.ftollsum,jdbcType=REAL}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.gsccs.cmcc.data.model.TradeVsp">
+		update bicp_tradevsp
+		<set>
+			<if test="mch_no != null">
+				mch_no = #{mch_no,jdbcType=VARCHAR},
+			</if>
+			<if test="hasline != null">
+				hasline = #{hasline,jdbcType=VARCHAR},
+			</if>
+			<if test="paytime != null">
+				paytime = #{paytime,jdbcType=VARCHAR},
+			</if>
+			<if test="payamount != null">
+				payamount = #{payamount,jdbcType=VARCHAR},
+			</if>
+			<if test="payfee != null">
+				payfee = #{payfee,jdbcType=INTEGER},
+			</if>
+			<if test="feemonth != null">
+				feemonth = #{feemonth,jdbcType=VARCHAR},
+			</if>
+			<if test="paytype != null">
+				paytype = #{paytype,jdbcType=VARCHAR},
+			</if>
+			<if test="signdate != null">
+				signdate = #{signdate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="enddate != null">
+				enddate = #{enddate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="paydate != null">
+				paydate = #{paydate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="agreeimg != null">
+				agreeimg = #{agreeimg,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	
+	
+	<update id="updateByPrimaryKey" parameterType="com.gsccs.cmcc.data.model.TradeVsp">
+		update bicp_tradevsp
+		set mch_no = #{mchNo,jdbcType=VARCHAR},
+		hasline = #{hasline,jdbcType=VARCHAR},
+		paytime = #{paytime,jdbcType=VARCHAR},
+		payamount = #{payamount,jdbcType=VARCHAR},
+		payfee = #{payfee,jdbcType=INTEGER},
+		feemonth = #{feemonth,jdbcType=VARCHAR},
+		paytype = #{paytype,jdbcType=VARCHAR},
+		signdate = #{signdate,jdbcType=TIMESTAMP},
+		enddate = #{enddate,jdbcType=TIMESTAMP},
+		paydate = #{paydate,jdbcType=TIMESTAMP},
+		remark = #{remark,jdbcType=VARCHAR},
+		ftollsum = #{ftollsum,jdbcType=REAL}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+
+
+	<!-- 更新专线存储过程 -->
+	<select id="callUpdateTradeVsp" statementType="CALLABLE">  
+	<![CDATA[  
+	    {call update_data_by_dict()}  
+	]]>
+	</select>
+</mapper>

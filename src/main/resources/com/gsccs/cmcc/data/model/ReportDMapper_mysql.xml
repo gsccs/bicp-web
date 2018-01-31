@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gsccs.cmcc.data.dao.ReportDMapper" >
+  <resultMap id="BaseResultMap" type="com.gsccs.cmcc.data.model.ReportD" >
+    <result column="areaname" property="areaname" jdbcType="VARCHAR" />
+    <result column="interviewdate" property="interviewdate" jdbcType="TIMESTAMP" />
+    <result column="ispname" property="ispname" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="terminal" property="terminal" jdbcType="INTEGER" />
+    <result column="fg_flow" property="fgFlow" jdbcType="INTEGER" />
+    <result column="fg_card" property="fgCard" jdbcType="INTEGER" />
+    <result column="app" property="app" jdbcType="INTEGER" />
+    <result column="product1" property="product1" jdbcType="VARCHAR" />
+    <result column="result1" property="result1" jdbcType="VARCHAR" />
+    <result column="product2" property="product2" jdbcType="VARCHAR" />
+    <result column="result2" property="result2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    areaname, interviewdate, ispname, username, terminal, fg_flow, fg_card, app, product1, 
+    result1, product2, result2
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gsccs.cmcc.data.model.ReportDExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from data_report
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.gsccs.cmcc.data.model.ReportDExample" >
+    delete from data_report
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gsccs.cmcc.data.model.ReportD" >
+    insert into data_report (areaname, interviewdate, ispname, 
+      username, terminal, fg_flow, 
+      fg_card, app, product1, 
+      result1, product2, result2
+      )
+    values (#{areaname,jdbcType=VARCHAR}, #{interviewdate,jdbcType=TIMESTAMP}, #{ispname,jdbcType=VARCHAR}, 
+      #{username,jdbcType=VARCHAR}, #{terminal,jdbcType=INTEGER}, #{fgFlow,jdbcType=INTEGER}, 
+      #{fgCard,jdbcType=INTEGER}, #{app,jdbcType=INTEGER}, #{product1,jdbcType=VARCHAR}, 
+      #{result1,jdbcType=VARCHAR}, #{product2,jdbcType=VARCHAR}, #{result2,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gsccs.cmcc.data.model.ReportD" >
+    insert into data_report
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="areaname != null" >
+        areaname,
+      </if>
+      <if test="interviewdate != null" >
+        interviewdate,
+      </if>
+      <if test="ispname != null" >
+        ispname,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="terminal != null" >
+        terminal,
+      </if>
+      <if test="fgFlow != null" >
+        fg_flow,
+      </if>
+      <if test="fgCard != null" >
+        fg_card,
+      </if>
+      <if test="app != null" >
+        app,
+      </if>
+      <if test="product1 != null" >
+        product1,
+      </if>
+      <if test="result1 != null" >
+        result1,
+      </if>
+      <if test="product2 != null" >
+        product2,
+      </if>
+      <if test="result2 != null" >
+        result2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="areaname != null" >
+        #{areaname,jdbcType=VARCHAR},
+      </if>
+      <if test="interviewdate != null" >
+        #{interviewdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ispname != null" >
+        #{ispname,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="terminal != null" >
+        #{terminal,jdbcType=INTEGER},
+      </if>
+      <if test="fgFlow != null" >
+        #{fgFlow,jdbcType=INTEGER},
+      </if>
+      <if test="fgCard != null" >
+        #{fgCard,jdbcType=INTEGER},
+      </if>
+      <if test="app != null" >
+        #{app,jdbcType=INTEGER},
+      </if>
+      <if test="product1 != null" >
+        #{product1,jdbcType=VARCHAR},
+      </if>
+      <if test="result1 != null" >
+        #{result1,jdbcType=VARCHAR},
+      </if>
+      <if test="product2 != null" >
+        #{product2,jdbcType=VARCHAR},
+      </if>
+      <if test="result2 != null" >
+        #{result2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gsccs.cmcc.data.model.ReportDExample" resultType="java.lang.Integer" >
+    select count(*) from data_report
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update data_report
+    <set >
+      <if test="record.areaname != null" >
+        areaname = #{record.areaname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.interviewdate != null" >
+        interviewdate = #{record.interviewdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ispname != null" >
+        ispname = #{record.ispname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.username != null" >
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.terminal != null" >
+        terminal = #{record.terminal,jdbcType=INTEGER},
+      </if>
+      <if test="record.fgFlow != null" >
+        fg_flow = #{record.fgFlow,jdbcType=INTEGER},
+      </if>
+      <if test="record.fgCard != null" >
+        fg_card = #{record.fgCard,jdbcType=INTEGER},
+      </if>
+      <if test="record.app != null" >
+        app = #{record.app,jdbcType=INTEGER},
+      </if>
+      <if test="record.product1 != null" >
+        product1 = #{record.product1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.result1 != null" >
+        result1 = #{record.result1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.product2 != null" >
+        product2 = #{record.product2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.result2 != null" >
+        result2 = #{record.result2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update data_report
+    set areaname = #{record.areaname,jdbcType=VARCHAR},
+      interviewdate = #{record.interviewdate,jdbcType=TIMESTAMP},
+      ispname = #{record.ispname,jdbcType=VARCHAR},
+      username = #{record.username,jdbcType=VARCHAR},
+      terminal = #{record.terminal,jdbcType=INTEGER},
+      fg_flow = #{record.fgFlow,jdbcType=INTEGER},
+      fg_card = #{record.fgCard,jdbcType=INTEGER},
+      app = #{record.app,jdbcType=INTEGER},
+      product1 = #{record.product1,jdbcType=VARCHAR},
+      result1 = #{record.result1,jdbcType=VARCHAR},
+      product2 = #{record.product2,jdbcType=VARCHAR},
+      result2 = #{record.result2,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

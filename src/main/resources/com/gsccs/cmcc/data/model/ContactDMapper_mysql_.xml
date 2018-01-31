@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gsccs.cmcc.data.dao.ContactDMapper" >
+  <resultMap id="BaseResultMap" type="com.gsccs.cmcc.data.model.ContactD" >
+    <result column="areaname" property="areaname" jdbcType="VARCHAR" />
+    <result column="ispname" property="ispname" jdbcType="VARCHAR" />
+    <result column="ispcode" property="ispcode" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="duty" property="duty" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="isptype" property="isptype" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    areaname, ispname, ispcode, name, duty, phone, isptype, status
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gsccs.cmcc.data.model.ContactDExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from data_contact
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.gsccs.cmcc.data.model.ContactDExample" >
+    delete from data_contact
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gsccs.cmcc.data.model.ContactD" >
+    insert into data_contact (areaname, ispname, ispcode, 
+      name, duty, phone, 
+      isptype, status)
+    values (#{areaname,jdbcType=VARCHAR}, #{ispname,jdbcType=VARCHAR}, #{ispcode,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{duty,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{isptype,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gsccs.cmcc.data.model.ContactD" >
+    insert into data_contact
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="areaname != null" >
+        areaname,
+      </if>
+      <if test="ispname != null" >
+        ispname,
+      </if>
+      <if test="ispcode != null" >
+        ispcode,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="duty != null" >
+        duty,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="isptype != null" >
+        isptype,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="areaname != null" >
+        #{areaname,jdbcType=VARCHAR},
+      </if>
+      <if test="ispname != null" >
+        #{ispname,jdbcType=VARCHAR},
+      </if>
+      <if test="ispcode != null" >
+        #{ispcode,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="duty != null" >
+        #{duty,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="isptype != null" >
+        #{isptype,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gsccs.cmcc.data.model.ContactDExample" resultType="java.lang.Integer" >
+    select count(*) from data_contact
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update data_contact
+    <set >
+      <if test="record.areaname != null" >
+        areaname = #{record.areaname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ispname != null" >
+        ispname = #{record.ispname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ispcode != null" >
+        ispcode = #{record.ispcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.duty != null" >
+        duty = #{record.duty,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isptype != null" >
+        isptype = #{record.isptype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update data_contact
+    set areaname = #{record.areaname,jdbcType=VARCHAR},
+      ispname = #{record.ispname,jdbcType=VARCHAR},
+      ispcode = #{record.ispcode,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      duty = #{record.duty,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      isptype = #{record.isptype,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

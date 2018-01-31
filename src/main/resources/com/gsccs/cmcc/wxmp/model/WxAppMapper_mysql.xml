@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gsccs.cmcc.wxmp.dao.WxAppMapper">
+	<resultMap id="BaseResultMap" type="com.gsccs.cmcc.wxmp.model.WxApp">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="secret" property="secret" jdbcType="VARCHAR" />
+		<result column="token" property="token" jdbcType="VARCHAR" />
+		<result column="access_token" property="accessToken" jdbcType="VARCHAR" />
+		<result column="aes_key" property="aesKey" jdbcType="VARCHAR" />
+		<result column="expirestime" property="expirestime" jdbcType="BIGINT" />
+		<result column="apikey" property="apikey" jdbcType="VARCHAR" />
+		<result column="mchid" property="mchid" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="domain" property="domain" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		id, secret, token, access_token, aes_key,expirestime,apikey,mchid,status,title,domain
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.gsccs.cmcc.wxmp.model.WxAppExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from wxmp_app
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+
+
+	<select id="selectPageByExample" resultMap="BaseResultMap"
+		parameterType="com.gsccs.cmcc.wxmp.model.WxAppExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from wxmp_app
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+		limit ${skip},${pageSize}
+	</select>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from wxmp_app
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from wxmp_app
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.gsccs.cmcc.wxmp.model.WxAppExample">
+		delete from wxmp_app
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.gsccs.cmcc.wxmp.model.WxApp">
+		insert into wxmp_app (id, secret, token,
+		access_token, aes_key, expirestime,apikey,mchid,status,title,domain
+		)
+		values (#{id,jdbcType=VARCHAR},
+		#{secret,jdbcType=VARCHAR},
+		#{token,jdbcType=VARCHAR},
+		#{accessToken,jdbcType=VARCHAR},
+		#{aesKey,jdbcType=VARCHAR},
+		#{expirestime,jdbcType=BIGINT},
+		#{apikey,jdbcType=VARCHAR},
+		#{mchid,jdbcType=VARCHAR},
+		#{status,jdbcType=VARCHAR},
+		#{title,jdbcType=VARCHAR},
+		#{domain,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<select id="countByExample" parameterType="com.gsccs.cmcc.wxmp.model.WxAppExample"
+		resultType="java.lang.Integer">
+		select count(*) from wxmp_app
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+
+	<update id="updateByExample" parameterType="map">
+		update wxmp_app
+		set id = #{record.id,jdbcType=VARCHAR},
+		secret = #{record.secret,jdbcType=VARCHAR},
+		token = #{record.token,jdbcType=VARCHAR},
+		access_token = #{record.accessToken,jdbcType=VARCHAR},
+		aes_key = #{record.aesKey,jdbcType=VARCHAR},
+		expirestime = #{record.expirestime,jdbcType=BIGINT},
+		apikey = #{record.apikey,jdbcType=VARCHAR},
+		mchid = #{record.mchid,jdbcType=VARCHAR},
+		title = #{record.title,jdbcType=VARCHAR},
+		domain = #{record.domain,jdbcType=VARCHAR}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+
+	<update id="updateByPrimaryKey" parameterType="com.gsccs.cmcc.wxmp.model.WxApp">
+		update wxmp_app
+		set secret = #{secret,jdbcType=VARCHAR},
+		token = #{token,jdbcType=VARCHAR},
+		access_token = #{accessToken,jdbcType=VARCHAR},
+		aes_key = #{aesKey,jdbcType=VARCHAR},
+		expirestime = #{expirestime,jdbcType=BIGINT},
+		apikey = #{apikey,jdbcType=VARCHAR},
+		mchid = #{mchid,jdbcType=VARCHAR},
+		title = #{title,jdbcType=VARCHAR},
+		domain = #{domain,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+</mapper>

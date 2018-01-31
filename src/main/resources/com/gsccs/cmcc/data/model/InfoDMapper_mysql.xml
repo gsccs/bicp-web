@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gsccs.cmcc.data.dao.InfoDMapper" >
+  <resultMap id="BaseResultMap" type="com.gsccs.cmcc.data.model.InfoD" >
+    <result column="areaname" property="areaname" jdbcType="VARCHAR" />
+    <result column="knowdate" property="knowdate" jdbcType="TIMESTAMP" />
+    <result column="ispcode" property="ispcode" jdbcType="VARCHAR" />
+    <result column="ispname" property="ispname" jdbcType="VARCHAR" />
+    <result column="usrename" property="usrename" jdbcType="VARCHAR" />
+    <result column="pname" property="pname" jdbcType="VARCHAR" />
+    <result column="pcontent" property="pcontent" jdbcType="VARCHAR" />
+    <result column="money" property="money" jdbcType="REAL" />
+    <result column="startdate" property="startdate" jdbcType="TIMESTAMP" />
+    <result column="negotiatedate" property="negotiatedate" jdbcType="TIMESTAMP" />
+    <result column="moneysource" property="moneysource" jdbcType="VARCHAR" />
+    <result column="partner" property="partner" jdbcType="VARCHAR" />
+    <result column="isplane" property="isplane" jdbcType="VARCHAR" />
+    <result column="planetype" property="planetype" jdbcType="VARCHAR" />
+    <result column="planenum" property="planenum" jdbcType="INTEGER" />
+    <result column="fee" property="fee" jdbcType="REAL" />
+    <result column="enddate" property="enddate" jdbcType="TIMESTAMP" />
+    <result column="iscx" property="iscx" jdbcType="VARCHAR" />
+    <result column="isydgj" property="isydgj" jdbcType="VARCHAR" />
+    <result column="isyqjk" property="isyqjk" jdbcType="VARCHAR" />
+    <result column="isyzj" property="isyzj" jdbcType="VARCHAR" />
+    <result column="isqyjz" property="isqyjz" jdbcType="VARCHAR" />
+    <result column="isxtbg" property="isxtbg" jdbcType="VARCHAR" />
+    <result column="isjttxl" property="isjttxl" jdbcType="VARCHAR" />
+    <result column="iswqt" property="iswqt" jdbcType="VARCHAR" />
+    <result column="ismdm" property="ismdm" jdbcType="VARCHAR" />
+    <result column="other" property="other" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    areaname, knowdate, ispcode, ispname, usrename, pname, pcontent, money, startdate, 
+    negotiatedate, moneysource, partner, isplane, planetype, planenum, fee, enddate, 
+    iscx, isydgj, isyqjk, isyzj, isqyjz, isxtbg, isjttxl, iswqt, ismdm, other
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gsccs.cmcc.data.model.InfoDExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from data_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.gsccs.cmcc.data.model.InfoDExample" >
+    delete from data_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gsccs.cmcc.data.model.InfoD" >
+    insert into data_info (areaname, knowdate, ispcode, 
+      ispname, usrename, pname, 
+      pcontent, money, startdate, 
+      negotiatedate, moneysource, partner, 
+      isplane, planetype, planenum, 
+      fee, enddate, iscx, 
+      isydgj, isyqjk, isyzj, 
+      isqyjz, isxtbg, isjttxl, 
+      iswqt, ismdm, other
+      )
+    values (#{areaname,jdbcType=VARCHAR}, #{knowdate,jdbcType=TIMESTAMP}, #{ispcode,jdbcType=VARCHAR}, 
+      #{ispname,jdbcType=VARCHAR}, #{usrename,jdbcType=VARCHAR}, #{pname,jdbcType=VARCHAR}, 
+      #{pcontent,jdbcType=VARCHAR}, #{money,jdbcType=REAL}, #{startdate,jdbcType=TIMESTAMP}, 
+      #{negotiatedate,jdbcType=TIMESTAMP}, #{moneysource,jdbcType=VARCHAR}, #{partner,jdbcType=VARCHAR}, 
+      #{isplane,jdbcType=VARCHAR}, #{planetype,jdbcType=VARCHAR}, #{planenum,jdbcType=INTEGER}, 
+      #{fee,jdbcType=REAL}, #{enddate,jdbcType=TIMESTAMP}, #{iscx,jdbcType=VARCHAR}, 
+      #{isydgj,jdbcType=VARCHAR}, #{isyqjk,jdbcType=VARCHAR}, #{isyzj,jdbcType=VARCHAR}, 
+      #{isqyjz,jdbcType=VARCHAR}, #{isxtbg,jdbcType=VARCHAR}, #{isjttxl,jdbcType=VARCHAR}, 
+      #{iswqt,jdbcType=VARCHAR}, #{ismdm,jdbcType=VARCHAR}, #{other,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gsccs.cmcc.data.model.InfoD" >
+    insert into data_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="areaname != null" >
+        areaname,
+      </if>
+      <if test="knowdate != null" >
+        knowdate,
+      </if>
+      <if test="ispcode != null" >
+        ispcode,
+      </if>
+      <if test="ispname != null" >
+        ispname,
+      </if>
+      <if test="usrename != null" >
+        usrename,
+      </if>
+      <if test="pname != null" >
+        pname,
+      </if>
+      <if test="pcontent != null" >
+        pcontent,
+      </if>
+      <if test="money != null" >
+        money,
+      </if>
+      <if test="startdate != null" >
+        startdate,
+      </if>
+      <if test="negotiatedate != null" >
+        negotiatedate,
+      </if>
+      <if test="moneysource != null" >
+        moneysource,
+      </if>
+      <if test="partner != null" >
+        partner,
+      </if>
+      <if test="isplane != null" >
+        isplane,
+      </if>
+      <if test="planetype != null" >
+        planetype,
+      </if>
+      <if test="planenum != null" >
+        planenum,
+      </if>
+      <if test="fee != null" >
+        fee,
+      </if>
+      <if test="enddate != null" >
+        enddate,
+      </if>
+      <if test="iscx != null" >
+        iscx,
+      </if>
+      <if test="isydgj != null" >
+        isydgj,
+      </if>
+      <if test="isyqjk != null" >
+        isyqjk,
+      </if>
+      <if test="isyzj != null" >
+        isyzj,
+      </if>
+      <if test="isqyjz != null" >
+        isqyjz,
+      </if>
+      <if test="isxtbg != null" >
+        isxtbg,
+      </if>
+      <if test="isjttxl != null" >
+        isjttxl,
+      </if>
+      <if test="iswqt != null" >
+        iswqt,
+      </if>
+      <if test="ismdm != null" >
+        ismdm,
+      </if>
+      <if test="other != null" >
+        other,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="areaname != null" >
+        #{areaname,jdbcType=VARCHAR},
+      </if>
+      <if test="knowdate != null" >
+        #{knowdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ispcode != null" >
+        #{ispcode,jdbcType=VARCHAR},
+      </if>
+      <if test="ispname != null" >
+        #{ispname,jdbcType=VARCHAR},
+      </if>
+      <if test="usrename != null" >
+        #{usrename,jdbcType=VARCHAR},
+      </if>
+      <if test="pname != null" >
+        #{pname,jdbcType=VARCHAR},
+      </if>
+      <if test="pcontent != null" >
+        #{pcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=REAL},
+      </if>
+      <if test="startdate != null" >
+        #{startdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="negotiatedate != null" >
+        #{negotiatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="moneysource != null" >
+        #{moneysource,jdbcType=VARCHAR},
+      </if>
+      <if test="partner != null" >
+        #{partner,jdbcType=VARCHAR},
+      </if>
+      <if test="isplane != null" >
+        #{isplane,jdbcType=VARCHAR},
+      </if>
+      <if test="planetype != null" >
+        #{planetype,jdbcType=VARCHAR},
+      </if>
+      <if test="planenum != null" >
+        #{planenum,jdbcType=INTEGER},
+      </if>
+      <if test="fee != null" >
+        #{fee,jdbcType=REAL},
+      </if>
+      <if test="enddate != null" >
+        #{enddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="iscx != null" >
+        #{iscx,jdbcType=VARCHAR},
+      </if>
+      <if test="isydgj != null" >
+        #{isydgj,jdbcType=VARCHAR},
+      </if>
+      <if test="isyqjk != null" >
+        #{isyqjk,jdbcType=VARCHAR},
+      </if>
+      <if test="isyzj != null" >
+        #{isyzj,jdbcType=VARCHAR},
+      </if>
+      <if test="isqyjz != null" >
+        #{isqyjz,jdbcType=VARCHAR},
+      </if>
+      <if test="isxtbg != null" >
+        #{isxtbg,jdbcType=VARCHAR},
+      </if>
+      <if test="isjttxl != null" >
+        #{isjttxl,jdbcType=VARCHAR},
+      </if>
+      <if test="iswqt != null" >
+        #{iswqt,jdbcType=VARCHAR},
+      </if>
+      <if test="ismdm != null" >
+        #{ismdm,jdbcType=VARCHAR},
+      </if>
+      <if test="other != null" >
+        #{other,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gsccs.cmcc.data.model.InfoDExample" resultType="java.lang.Integer" >
+    select count(*) from data_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update data_info
+    <set >
+      <if test="record.areaname != null" >
+        areaname = #{record.areaname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.knowdate != null" >
+        knowdate = #{record.knowdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ispcode != null" >
+        ispcode = #{record.ispcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ispname != null" >
+        ispname = #{record.ispname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usrename != null" >
+        usrename = #{record.usrename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pname != null" >
+        pname = #{record.pname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pcontent != null" >
+        pcontent = #{record.pcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.money != null" >
+        money = #{record.money,jdbcType=REAL},
+      </if>
+      <if test="record.startdate != null" >
+        startdate = #{record.startdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.negotiatedate != null" >
+        negotiatedate = #{record.negotiatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.moneysource != null" >
+        moneysource = #{record.moneysource,jdbcType=VARCHAR},
+      </if>
+      <if test="record.partner != null" >
+        partner = #{record.partner,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isplane != null" >
+        isplane = #{record.isplane,jdbcType=VARCHAR},
+      </if>
+      <if test="record.planetype != null" >
+        planetype = #{record.planetype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.planenum != null" >
+        planenum = #{record.planenum,jdbcType=INTEGER},
+      </if>
+      <if test="record.fee != null" >
+        fee = #{record.fee,jdbcType=REAL},
+      </if>
+      <if test="record.enddate != null" >
+        enddate = #{record.enddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.iscx != null" >
+        iscx = #{record.iscx,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isydgj != null" >
+        isydgj = #{record.isydgj,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isyqjk != null" >
+        isyqjk = #{record.isyqjk,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isyzj != null" >
+        isyzj = #{record.isyzj,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isqyjz != null" >
+        isqyjz = #{record.isqyjz,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isxtbg != null" >
+        isxtbg = #{record.isxtbg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isjttxl != null" >
+        isjttxl = #{record.isjttxl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iswqt != null" >
+        iswqt = #{record.iswqt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ismdm != null" >
+        ismdm = #{record.ismdm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.other != null" >
+        other = #{record.other,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update data_info
+    set areaname = #{record.areaname,jdbcType=VARCHAR},
+      knowdate = #{record.knowdate,jdbcType=TIMESTAMP},
+      ispcode = #{record.ispcode,jdbcType=VARCHAR},
+      ispname = #{record.ispname,jdbcType=VARCHAR},
+      usrename = #{record.usrename,jdbcType=VARCHAR},
+      pname = #{record.pname,jdbcType=VARCHAR},
+      pcontent = #{record.pcontent,jdbcType=VARCHAR},
+      money = #{record.money,jdbcType=REAL},
+      startdate = #{record.startdate,jdbcType=TIMESTAMP},
+      negotiatedate = #{record.negotiatedate,jdbcType=TIMESTAMP},
+      moneysource = #{record.moneysource,jdbcType=VARCHAR},
+      partner = #{record.partner,jdbcType=VARCHAR},
+      isplane = #{record.isplane,jdbcType=VARCHAR},
+      planetype = #{record.planetype,jdbcType=VARCHAR},
+      planenum = #{record.planenum,jdbcType=INTEGER},
+      fee = #{record.fee,jdbcType=REAL},
+      enddate = #{record.enddate,jdbcType=TIMESTAMP},
+      iscx = #{record.iscx,jdbcType=VARCHAR},
+      isydgj = #{record.isydgj,jdbcType=VARCHAR},
+      isyqjk = #{record.isyqjk,jdbcType=VARCHAR},
+      isyzj = #{record.isyzj,jdbcType=VARCHAR},
+      isqyjz = #{record.isqyjz,jdbcType=VARCHAR},
+      isxtbg = #{record.isxtbg,jdbcType=VARCHAR},
+      isjttxl = #{record.isjttxl,jdbcType=VARCHAR},
+      iswqt = #{record.iswqt,jdbcType=VARCHAR},
+      ismdm = #{record.ismdm,jdbcType=VARCHAR},
+      other = #{record.other,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

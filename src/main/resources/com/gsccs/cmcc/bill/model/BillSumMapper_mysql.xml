@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gsccs.cmcc.bill.dao.BillSumMapper" >
+  <resultMap id="BaseResultMap" type="com.gsccs.cmcc.bill.model.BillSum" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="corpid" property="corpid" jdbcType="VARCHAR" />
+    <result column="adddate" property="adddate" jdbcType="TIMESTAMP" />
+    <result column="amuserid" property="amuserid" jdbcType="VARCHAR" />
+    <result column="addtime" property="addtime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    
+    <!--  -->
+    <result column="corptitle" property="corptitle" jdbcType="VARCHAR" />
+    <result column="amname" property="amname" jdbcType="VARCHAR" />
+    <result column="areastr" property="areastr" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, corpid, adddate, amuserid, addtime, status
+  </sql>
+  
+  <sql id="Join_Column_List" >
+    corptitle,amname,areastr
+  </sql>
+  
+  <sql id="Join1_Column_List" >
+    corptitle
+  </sql>
+  
+  <select id="selectPageByExample" resultMap="BaseResultMap" parameterType="com.gsccs.cmcc.bill.model.BillSumExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Join_Column_List" />
+    from (
+    	select a.*,b.title as corptitle,c.title as amname,d.name as areastr
+    	from bill_sum a, 
+    		xxbs_corp b,
+    		plat_sys_user c,
+    		plat_sys_area d
+    	where a.corpid = b.ispcode
+    		and a.amuserid = c.id
+    		and b.acode = d.code
+    	) as aa
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    order by addtime desc
+    limit ${skip},${pageSize}
+  </select>
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />,
+    <include refid="Join1_Column_List" />
+    from (
+    select a.* , b.title as corptitle
+		from bill_sum a  	
+		LEFT JOIN xxbs_corp  b  on a.corpid = b.ispcode
+    ) as aa
+    
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+   <!-- <select id="selectByPrimaryKey1" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from bill_sum
+    where id = #{id,jdbcType=VARCHAR}
+  </select> -->
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from bill_sum
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <delete id="deleteByExample" parameterType="com.gsccs.cmcc.bill.model.BillSumExample" >
+    delete from bill_sum
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gsccs.cmcc.bill.model.BillSum" >
+    insert into bill_sum (id, corpid, adddate, 
+      amuserid, addtime, status
+      )
+    values (#{id,jdbcType=VARCHAR}, #{corpid,jdbcType=VARCHAR}, #{adddate,jdbcType=TIMESTAMP}, 
+      #{amuserid,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  <select id="countByExample" parameterType="com.gsccs.cmcc.bill.model.BillSumExample" resultType="java.lang.Integer" >
+    select count(*) from bill_sum
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  
+  <update id="updateByExample" parameterType="map" >
+    update bill_sum
+    set id = #{record.id,jdbcType=VARCHAR},
+      corpid = #{record.corpid,jdbcType=VARCHAR},
+      adddate = #{record.adddate,jdbcType=TIMESTAMP},
+      amuserid = #{record.amuserid,jdbcType=VARCHAR},
+      addtime = #{record.addtime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.gsccs.cmcc.bill.model.BillSum" >
+    update bill_sum
+    set corpid = #{corpid,jdbcType=VARCHAR},
+      adddate = #{adddate,jdbcType=TIMESTAMP},
+      amuserid = #{amuserid,jdbcType=VARCHAR},
+      addtime = #{addtime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

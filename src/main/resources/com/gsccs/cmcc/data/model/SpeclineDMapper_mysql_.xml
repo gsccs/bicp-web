@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gsccs.cmcc.data.dao.SpeclineDMapper" >
+  <resultMap id="BaseResultMap" type="com.gsccs.cmcc.data.model.SpeclineD" >
+    <result column="areaname" property="areaname" jdbcType="VARCHAR" />
+    <result column="ispname" property="ispname" jdbcType="VARCHAR" />
+    <result column="ispcode" property="ispcode" jdbcType="VARCHAR" />
+    <result column="hasline" property="hasline" jdbcType="VARCHAR" />
+    <result column="isptype" property="isptype" jdbcType="VARCHAR" />
+    <result column="linetype" property="linetype" jdbcType="VARCHAR" />
+    <result column="bitsize" property="bitsize" jdbcType="INTEGER" />
+    <result column="feemonth" property="feemonth" jdbcType="VARCHAR" />
+    <result column="paytype" property="paytype" jdbcType="VARCHAR" />
+    <result column="signdate" property="signdate" jdbcType="TIMESTAMP" />
+    <result column="enddate" property="enddate" jdbcType="TIMESTAMP" />
+    <result column="paydate" property="paydate" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="agreeimg" property="agreeimg" jdbcType="VARCHAR" />
+    <result column="customer" property="customer" jdbcType="VARCHAR" />
+    <result column="yeartariff" property="yeartariff" jdbcType="VARCHAR" />
+    <result column="pactnumber" property="pactnumber" jdbcType="VARCHAR" />
+    <result column="pactname" property="pactname" jdbcType="VARCHAR" />
+    <result column="pactvalidity" property="pactvalidity" jdbcType="VARCHAR" />
+    <result column="worknumber" property="worknumber" jdbcType="VARCHAR" />
+    <result column="speclinename" property="speclinename" jdbcType="VARCHAR" />
+    <result column="esopnumber" property="esopnumber" jdbcType="VARCHAR" />
+    <result column="esoptheme" property="esoptheme" jdbcType="VARCHAR" />
+    <result column="opentime" property="opentime" jdbcType="TIMESTAMP" />
+    <result column="bossnumber" property="bossnumber" jdbcType="VARCHAR" />
+    <result column="ftolltime" property="ftolltime" jdbcType="TIMESTAMP" />
+    <result column="ftollsum" property="ftollsum" jdbcType="REAL" />
+    
+    <!-- -->
+	<result column="corptitle" property="corptitle" jdbcType="VARCHAR" />
+	<result column="linename" property="linename" jdbcType="VARCHAR" />
+	
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    areaname, ispname, ispcode, hasline, isptype, linetype, bitsize, feemonth, paytype, 
+    signdate, enddate, paydate, remark, agreeimg,customer, yeartariff, pactnumber, pactname, pactvalidity, 
+    worknumber, speclinename, esopnumber, esoptheme, opentime, bossnumber, ftolltime, 
+    ftollsum
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gsccs.cmcc.data.model.SpeclineDExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from data_specline
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    
+  </select>
+  <delete id="deleteByExample" parameterType="com.gsccs.cmcc.data.model.SpeclineDExample" >
+    delete from data_specline
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gsccs.cmcc.data.model.SpeclineD" >
+    insert into data_specline (areaname, ispname, ispcode, 
+      hasline, isptype, linetype, 
+      bitsize, feemonth, paytype, 
+      signdate, enddate, paydate, 
+      remark, agreeimg,customer, yeartariff, 
+      pactnumber, pactname, pactvalidity, 
+      worknumber, speclinename, esopnumber, 
+      esoptheme, opentime, bossnumber, 
+      ftolltime, ftollsum)
+    values (#{areaname,jdbcType=VARCHAR}, #{ispname,jdbcType=VARCHAR}, #{ispcode,jdbcType=VARCHAR}, 
+      #{hasline,jdbcType=VARCHAR}, #{isptype,jdbcType=VARCHAR}, #{linetype,jdbcType=VARCHAR}, 
+      #{bitsize,jdbcType=INTEGER}, #{feemonth,jdbcType=VARCHAR}, #{paytype,jdbcType=VARCHAR}, 
+      #{signdate,jdbcType=TIMESTAMP}, #{enddate,jdbcType=TIMESTAMP}, #{paydate,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR}, #{agreeimg,jdbcType=VARCHAR},#{customer,jdbcType=VARCHAR}, #{yeartariff,jdbcType=VARCHAR}, 
+      #{pactnumber,jdbcType=VARCHAR}, #{pactname,jdbcType=VARCHAR}, #{pactvalidity,jdbcType=VARCHAR}, 
+      #{worknumber,jdbcType=VARCHAR}, #{speclinename,jdbcType=VARCHAR}, #{esopnumber,jdbcType=VARCHAR}, 
+      #{esoptheme,jdbcType=VARCHAR}, #{opentime,jdbcType=TIMESTAMP}, #{bossnumber,jdbcType=VARCHAR}, 
+      #{ftolltime,jdbcType=TIMESTAMP}, #{ftollsum,jdbcType=REAL})
+  </insert>
+  
+  <select id="countByExample" parameterType="com.gsccs.cmcc.data.model.SpeclineDExample" resultType="java.lang.Integer" >
+    select count(*) from data_specline
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update data_specline
+    <set >
+      <if test="record.areaname != null" >
+        areaname = #{record.areaname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ispname != null" >
+        ispname = #{record.ispname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ispcode != null" >
+        ispcode = #{record.ispcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hasline != null" >
+        hasline = #{record.hasline,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isptype != null" >
+        isptype = #{record.isptype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linetype != null" >
+        linetype = #{record.linetype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bitsize != null" >
+        bitsize = #{record.bitsize,jdbcType=INTEGER},
+      </if>
+      <if test="record.feemonth != null" >
+        feemonth = #{record.feemonth,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paytype != null" >
+        paytype = #{record.paytype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signdate != null" >
+        signdate = #{record.signdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.enddate != null" >
+        enddate = #{record.enddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.paydate != null" >
+        paydate = #{record.paydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.agreeimg != null" >
+        agreeimg = #{record.agreeimg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update data_specline
+    set areaname = #{record.areaname,jdbcType=VARCHAR},
+      ispname = #{record.ispname,jdbcType=VARCHAR},
+      ispcode = #{record.ispcode,jdbcType=VARCHAR},
+      hasline = #{record.hasline,jdbcType=VARCHAR},
+      isptype = #{record.isptype,jdbcType=VARCHAR},
+      linetype = #{record.linetype,jdbcType=VARCHAR},
+      bitsize = #{record.bitsize,jdbcType=INTEGER},
+      feemonth = #{record.feemonth,jdbcType=VARCHAR},
+      paytype = #{record.paytype,jdbcType=VARCHAR},
+      signdate = #{record.signdate,jdbcType=TIMESTAMP},
+      enddate = #{record.enddate,jdbcType=TIMESTAMP},
+      paydate = #{record.paydate,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      agreeimg = #{record.agreeimg,jdbcType=VARCHAR},
+      customer = #{record.customer,jdbcType=VARCHAR},
+      yeartariff = #{record.yeartariff,jdbcType=VARCHAR},
+      pactnumber = #{record.pactnumber,jdbcType=VARCHAR},
+      pactname = #{record.pactname,jdbcType=VARCHAR},
+      pactvalidity = #{record.pactvalidity,jdbcType=VARCHAR},
+      worknumber = #{record.worknumber,jdbcType=VARCHAR},
+      speclinename = #{record.speclinename,jdbcType=VARCHAR},
+      esopnumber = #{record.esopnumber,jdbcType=VARCHAR},
+      esoptheme = #{record.esoptheme,jdbcType=VARCHAR},
+      opentime = #{record.opentime,jdbcType=TIMESTAMP},
+      bossnumber = #{record.bossnumber,jdbcType=VARCHAR},
+      ftolltime = #{record.ftolltime,jdbcType=TIMESTAMP},
+      ftollsum = #{record.ftollsum,jdbcType=REAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  
+  	<!-- 更新专线存储过程 -->
+	<select id="callUpdateSpecline" statementType="CALLABLE">  
+	<![CDATA[  
+	    {call update_data_by_dict()}  
+	]]>  
+	</select>
+</mapper>

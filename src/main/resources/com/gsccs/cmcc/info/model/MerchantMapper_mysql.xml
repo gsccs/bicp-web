@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gsccs.cmcc.merchant.dao.MerchantMapper">
+	<resultMap id="BaseResultMap" type="com.gsccs.cmcc.info.model.Merchant">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="mchno" property="mchno" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="linker" property="linker" jdbcType="VARCHAR" />
+		<result column="acode" property="acode" jdbcType="VARCHAR" />
+		<result column="address" property="address" jdbcType="VARCHAR" />
+		<result column="zipcode" property="zipcode" jdbcType="VARCHAR" />
+		<result column="qqcode" property="qqcode" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="addtime" property="addtime" jdbcType="TIMESTAMP" />
+		<result column="amuserid" property="amUserId" jdbcType="BIGINT" />
+		<result column="amname" property="amName" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		id, title, mchno, regcode, regtype, phone, email, domain, nature,
+		legaler,
+		linker, acode, address, zipcode, qqcode,
+		logo, status, addtime, amuserid
+	</sql>
+	<sql id="Blob_Column_List">
+		content
+	</sql>
+	
+	<sql id="Join_Column_List">
+		amName
+	</sql>
+	
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.gsccs.cmcc.info.model.MerchantExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from bicp_merchant
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+
+	<select id="selectPageByExample" resultMap="BaseResultMap"
+		parameterType="com.gsccs.cmcc.info.model.MerchantExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Join_Column_List" />
+		from (
+		select a.* ,b.title as amName 
+		from bicp_merchant a
+		left join plat_sys_user b on a.amuserid = b.id
+		) as aa
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		limit ${skip},${pageSize}
+	</select>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from bicp_merchant
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from bicp_merchant
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	
+	<delete id="deleteByExample" parameterType="com.gsccs.cmcc.info.model.MerchantExample">
+		delete from bicp_merchant
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	
+	
+	<insert id="insert" parameterType="com.gsccs.cmcc.info.model.Merchant">
+		insert into bicp_merchant (id, title, mchno,
+		regcode, regtype, phone,
+		email, domain, nature,
+		legaler, linker, acode, address,
+		zipcode, qqcode,logo, status, addtime,
+		amuserid, content)
+		values (#{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR},
+		#{mchno,jdbcType=VARCHAR},
+		#{regcode,jdbcType=VARCHAR}, 
+		#{regtype,jdbcType=VARCHAR}, 
+		#{phone,jdbcType=VARCHAR},
+		#{email,jdbcType=VARCHAR}, 
+		#{nature,jdbcType=VARCHAR},
+		#{linker,jdbcType=VARCHAR},
+		#{acode,jdbcType=VARCHAR},
+		#{address,jdbcType=VARCHAR},
+		#{zipcode,jdbcType=VARCHAR}, 
+		#{qqcode,jdbcType=VARCHAR},
+		#{logo,jdbcType=VARCHAR}, 
+		#{status,jdbcType=VARCHAR}, 
+		#{addtime,jdbcType=TIMESTAMP},
+		#{amuserid,jdbcType=BIGINT})
+	</insert>
+
+	<select id="countByExample" parameterType="com.gsccs.cmcc.info.model.MerchantExample"
+		resultType="java.lang.Integer">
+		select count(*) from bicp_merchant
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	
+
+	<update id="updateByExample" parameterType="map">
+		update bicp_merchant
+		set id = #{record.id,jdbcType=VARCHAR},
+		title = #{record.title,jdbcType=VARCHAR},
+		mchno = #{record.mchno,jdbcType=VARCHAR},
+		regcode = #{record.regcode,jdbcType=VARCHAR},
+		regtype = #{record.regtype,jdbcType=VARCHAR},
+		phone = #{record.phone,jdbcType=VARCHAR},
+		email = #{record.email,jdbcType=VARCHAR},
+		domain = #{record.domain,jdbcType=VARCHAR},
+		nature = #{record.nature,jdbcType=VARCHAR},
+		legaler = #{record.legaler,jdbcType=VARCHAR},
+		linker = #{record.linker,jdbcType=VARCHAR},
+		acode = #{record.acode,jdbcType=VARCHAR},
+		address = #{record.address,jdbcType=VARCHAR},
+		zipcode = #{record.zipcode,jdbcType=VARCHAR},
+		qqcode = #{record.qqcode,jdbcType=VARCHAR},
+		logo = #{record.logo,jdbcType=VARCHAR},
+		status = #{record.status,jdbcType=VARCHAR},
+		addtime = #{record.addtime,jdbcType=TIMESTAMP},
+		amuserid = #{record.amuserid,jdbcType=BIGINT}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	
+	
+	<update id="updateByPrimaryKey" parameterType="com.gsccs.cmcc.info.model.Merchant">
+		update bicp_merchant
+		set title = #{title,jdbcType=VARCHAR},
+		mchno = #{mchno,jdbcType=VARCHAR},
+		regcode = #{regcode,jdbcType=VARCHAR},
+		regtype = #{regtype,jdbcType=VARCHAR},
+		phone = #{phone,jdbcType=VARCHAR},
+		email = #{email,jdbcType=VARCHAR},
+		linker = #{linker,jdbcType=VARCHAR},
+		acode = #{acode,jdbcType=VARCHAR},
+		address = #{address,jdbcType=VARCHAR},
+		zipcode = #{zipcode,jdbcType=VARCHAR},
+		qqcode = #{qqcode,jdbcType=VARCHAR},
+		logo = #{logo,jdbcType=VARCHAR},
+		status = #{status,jdbcType=VARCHAR},
+		addtime = #{addtime,jdbcType=TIMESTAMP},
+		amuserid = #{amuserid,jdbcType=BIGINT}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	
+</mapper>
