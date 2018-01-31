@@ -2,17 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.gsccs.cmcc.bill.dao.BillSumMapper" >
   <resultMap id="BaseResultMap" type="com.gsccs.cmcc.bill.model.BillSum" >
-    <id column="id" property="id" jdbcType="VARCHAR" />
-    <result column="corpid" property="corpid" jdbcType="VARCHAR" />
-    <result column="adddate" property="adddate" jdbcType="TIMESTAMP" />
-    <result column="amuserid" property="amuserid" jdbcType="VARCHAR" />
-    <result column="addtime" property="addtime" jdbcType="TIMESTAMP" />
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="billno" property="billno" jdbcType="VARCHAR" />
+    <result column="payfee" property="payfee" jdbcType="DECIMAL" />
+    <result column="disfee" property="disfee" jdbcType="DECIMAL" />
+    <result column="payfee" property="payfee" jdbcType="DECIMAL" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="starttime" property="starttime" jdbcType="TIMESTAMP" />
+    <result column="endtime" property="endtime" jdbcType="TIMESTAMP" />
     <result column="status" property="status" jdbcType="VARCHAR" />
-    
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
     <!--  -->
-    <result column="corptitle" property="corptitle" jdbcType="VARCHAR" />
-    <result column="amname" property="amname" jdbcType="VARCHAR" />
-    <result column="areastr" property="areastr" jdbcType="VARCHAR" />
+    <result column="realname" property="realname" jdbcType="VARCHAR" />
+    <result column="openid" property="openid" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -73,15 +75,11 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, corpid, adddate, amuserid, addtime, status
+    id, billno,sumfee,disfee,payfee, userid,starttime, endtime, status,remark
   </sql>
   
   <sql id="Join_Column_List" >
-    corptitle,amname,areastr
-  </sql>
-  
-  <sql id="Join1_Column_List" >
-    corptitle
+    realname,openid
   </sql>
   
   <select id="selectPageByExample" resultMap="BaseResultMap" parameterType="com.gsccs.cmcc.bill.model.BillSumExample" >
@@ -93,15 +91,11 @@
     ,
     <include refid="Join_Column_List" />
     from (
-    	select a.*,b.title as corptitle,c.title as amname,d.name as areastr
+    	select a.*,c.realname as realname,c.openid as openid
     	from bill_sum a, 
-    		xxbs_corp b,
-    		plat_sys_user c,
-    		plat_sys_area d
-    	where a.corpid = b.ispcode
-    		and a.amuserid = c.id
-    		and b.acode = d.code
-    	) as aa
+    		 plat_sys_user c
+    	where  a.userid = c.id
+    ) as aa
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -112,23 +106,18 @@
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
-    <include refid="Base_Column_List" />,
-    <include refid="Join1_Column_List" />
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Join_Column_List" />
     from (
-    select a.* , b.title as corptitle
-		from bill_sum a  	
-		LEFT JOIN xxbs_corp  b  on a.corpid = b.ispcode
+    	select a.*,c.realname as realname,c.openid as openid
+    	from bill_sum a, 
+    		 plat_sys_user c
+    	where  a.userid = c.id
     ) as aa
-    
     where id = #{id,jdbcType=VARCHAR}
   </select>
   
-   <!-- <select id="selectByPrimaryKey1" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
-    <include refid="Base_Column_List" />
-    from bill_sum
-    where id = #{id,jdbcType=VARCHAR}
-  </select> -->
   
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from bill_sum
@@ -142,11 +131,17 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.gsccs.cmcc.bill.model.BillSum" >
-    insert into bill_sum (id, corpid, adddate, 
-      amuserid, addtime, status
-      )
-    values (#{id,jdbcType=VARCHAR}, #{corpid,jdbcType=VARCHAR}, #{adddate,jdbcType=TIMESTAMP}, 
-      #{amuserid,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}
+    insert into bill_sum (id, billno, sumfee,disfee,payfee,userid, starttime,endtime,status)
+    values (#{id,jdbcType=BIGINT}, 
+    		#{billno,jdbcType=VARCHAR},
+    		#{sumfee,jdbcType=DECIMAL},
+    		#{disfee,jdbcType=DECIMAL},
+    		#{payfee,jdbcType=DECIMAL},
+    		#{adddate,jdbcType=TIMESTAMP}, 
+      		#{userid,jdbcType=VARCHAR}, 
+      		#{starttime,jdbcType=TIMESTAMP}, 
+      		#{endtime,jdbcType=TIMESTAMP}, 
+      		#{status,jdbcType=VARCHAR}
       )
   </insert>
   
@@ -159,11 +154,14 @@
   
   <update id="updateByExample" parameterType="map" >
     update bill_sum
-    set id = #{record.id,jdbcType=VARCHAR},
-      corpid = #{record.corpid,jdbcType=VARCHAR},
-      adddate = #{record.adddate,jdbcType=TIMESTAMP},
-      amuserid = #{record.amuserid,jdbcType=VARCHAR},
-      addtime = #{record.addtime,jdbcType=TIMESTAMP},
+    set id = #{record.id,jdbcType=BIGINT},
+      billno = #{record.billno,jdbcType=VARCHAR},
+      sumfee = #{record.sumfee,jdbcType=DECIMAL},
+      disfee = #{record.disfee,jdbcType=DECIMAL},
+      payfee = #{record.payfee,jdbcType=DECIMAL},
+      userid = #{record.userid,jdbcType=VARCHAR},
+      starttime = #{record.adddate,jdbcType=TIMESTAMP},
+      endtime = #{record.endtime,jdbcType=TIMESTAMP},
       status = #{record.status,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -172,11 +170,14 @@
   
   <update id="updateByPrimaryKey" parameterType="com.gsccs.cmcc.bill.model.BillSum" >
     update bill_sum
-    set corpid = #{corpid,jdbcType=VARCHAR},
-      adddate = #{adddate,jdbcType=TIMESTAMP},
-      amuserid = #{amuserid,jdbcType=VARCHAR},
-      addtime = #{addtime,jdbcType=TIMESTAMP},
-      status = #{status,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=VARCHAR}
+    set billno = #{billno,jdbcType=VARCHAR},
+    	sumfee = #{sumfee,jdbcType=VARCHAR},
+    	disfee = #{disfee,jdbcType=VARCHAR},
+    	payfee = #{payfee,jdbcType=VARCHAR},
+      	userid = #{userid,jdbcType=VARCHAR},
+      	starttime = #{starttime,jdbcType=TIMESTAMP},
+      	endtime = #{endtime,jdbcType=TIMESTAMP},
+      	status = #{status,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

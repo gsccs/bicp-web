@@ -1,6 +1,7 @@
 package com.gsccs.cmcc.wxwap.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import me.chanjar.weixin.common.api.WxConsts;
 import me.chanjar.weixin.common.exception.WxErrorException;
@@ -27,7 +28,8 @@ public class WapMpController{
 	protected WxAppService wxAppService;
 	@Autowired
 	protected HttpServletRequest request;
-	
+	@Autowired
+	protected HttpServletResponse response;
 	
 	public String getReqUrl(){
 		StringBuilder sb = new StringBuilder();

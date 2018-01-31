@@ -17,8 +17,10 @@ public interface BillService {
 	public Integer add(BillItem recomd);
 
 	public void update(BillItem recomd);
-
-	public BillItem getSemrecomdT(String id);
+	
+	public BillSum getBillSum(String id);
+	
+	public BillItem getBillItem(String id);
 
 	public void del(String id);
 	
@@ -29,5 +31,7 @@ public interface BillService {
 	public List<Subject> find(Subject param, String order, int currPage,
 			int pageSize);
 	
-	public int count(BillItem semitem);
+	public int count(BillSum param);
+	
+	public int count(BillItem param);
 }

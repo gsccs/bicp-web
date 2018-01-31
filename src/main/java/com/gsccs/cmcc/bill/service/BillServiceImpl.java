@@ -39,7 +39,7 @@ public class BillServiceImpl implements BillService{
 	}
 
 	@Override
-	public BillItem getSemrecomdT(String id) {
+	public BillItem getBillItem(String id) {
 		return billItemMapper.selectByPrimaryKey(Integer.valueOf(id));
 	}
 
@@ -91,6 +91,18 @@ public class BillServiceImpl implements BillService{
 			int currPage, int pageSize) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public BillSum getBillSum(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int count(BillSum param) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
