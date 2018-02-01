@@ -4,23 +4,23 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.gsccs.cmcc.bill.model.BillSum;
 import com.gsccs.cmcc.bill.model.BillSumExample;
 import com.gsccs.cmcc.bill.model.BillTpl;
+import com.gsccs.cmcc.bill.model.BillTplExample;
 
-public interface BillSumMapper {
+public interface BillTplMapper {
 
-	int countByExample(BillSumExample example);
+	int countByExample(BillTplExample example);
 
-	int deleteByExample(BillSumExample example);
+	int deleteByExample(BillTplExample example);
 
 	int deleteByPrimaryKey(String id);
 
-	int insert(BillSum record);
+	int insert(BillTpl record);
 
-	List<BillSum> selectPageByExample(BillSumExample example);
+	List<BillTpl> selectPageByExample(BillTplExample example);
 
-	BillSum selectByPrimaryKey(String id);
+	BillTpl selectByPrimaryKey(String id);
 
 	int updateByExample(@Param("record") BillTpl record,
 			@Param("example") BillSumExample example);

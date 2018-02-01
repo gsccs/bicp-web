@@ -10,7 +10,7 @@ public class Subject {
 	
 	private Integer id;
 	private String code;		//账单编码
-	private String name;		//账单名称
+	private String title;		//账单名称
 	private String groupid;		//分组
 	private Double fee;			//默认金额
 	private String status;		//状态 启用 关闭
@@ -31,12 +31,12 @@ public class Subject {
 		this.code = code;
 	}
 
-	public String getName() {
-		return name;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getStatus() {

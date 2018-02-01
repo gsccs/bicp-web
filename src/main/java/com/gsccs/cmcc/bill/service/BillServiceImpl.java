@@ -8,12 +8,16 @@ import org.springframework.stereotype.Service;
 
 import com.gsccs.cmcc.bill.dao.BillItemMapper;
 import com.gsccs.cmcc.bill.dao.BillSumMapper;
+import com.gsccs.cmcc.bill.dao.BillTplMapper;
 import com.gsccs.cmcc.bill.dao.SubjectMapper;
 import com.gsccs.cmcc.bill.model.BillItem;
 import com.gsccs.cmcc.bill.model.BillItemExample;
-import com.gsccs.cmcc.bill.model.BillItemExample.Criteria;
-import com.gsccs.cmcc.bill.model.Subject;
 import com.gsccs.cmcc.bill.model.BillSum;
+import com.gsccs.cmcc.bill.model.BillSumExample;
+import com.gsccs.cmcc.bill.model.BillTpl;
+import com.gsccs.cmcc.bill.model.BillTplExample;
+import com.gsccs.cmcc.bill.model.Subject;
+import com.gsccs.cmcc.bill.model.SubjectExample;
 
 @Service
 public class BillServiceImpl implements BillService{
@@ -24,6 +28,8 @@ public class BillServiceImpl implements BillService{
 	private BillItemMapper billItemMapper;
 	@Autowired
 	private SubjectMapper subjectMapper;
+	@Autowired
+	private BillTplMapper billTplMapper;
 
 	@Override
 	public Integer add(BillItem param) {
@@ -44,7 +50,7 @@ public class BillServiceImpl implements BillService{
 	}
 
 	@Override
-	public void del(String id) {
+	public void delBillItem(String id) {
 		billItemMapper.deleteByPrimaryKey(Integer.valueOf(id));
 	}
 
@@ -59,18 +65,6 @@ public class BillServiceImpl implements BillService{
 		return billItemMapper.selectPageByExample(example);
 	}
 
-	private void proSearchParam(BillItem param, Criteria criteria) {
-		if (param != null) {
-			if (StringUtils.isNotEmpty(param.getBillid())) {
-				criteria.andBillidEqualTo(param.getBillid());
-			}
-
-			if (StringUtils.isNotEmpty(param.getSubjectid())) {
-				criteria.andSubjectidEqualTo(param.getSubjectid());
-			}
-		}
-	}
-
 	@Override
 	public int count(BillItem recomd) {
 		BillItemExample example = new BillItemExample();
@@ -82,21 +76,28 @@ public class BillServiceImpl implements BillService{
 	@Override
 	public List<BillSum> find(BillSum param, String order, int currPage,
 			int pageSize) {
-		// TODO Auto-generated method stub
-		return null;
+		BillSumExample example = new BillSumExample();
+		BillSumExample.Criteria c = example.createCriteria();
+		proSearchParam(param, c);
+		example.setPageSize(pageSize);
+		example.setCurrPage(currPage);
+		return billSumMapper.selectPageByExample(example);
 	}
 
 	@Override
 	public List<Subject> find(Subject param, String order,
 			int currPage, int pageSize) {
-		// TODO Auto-generated method stub
-		return null;
+		SubjectExample example = new SubjectExample();
+		SubjectExample.Criteria c = example.createCriteria();
+		proSearchParam(param, c);
+		example.setPageSize(pageSize);
+		example.setCurrPage(currPage);
+		return subjectMapper.selectPageByExample(example);
 	}
 
 	@Override
 	public BillSum getBillSum(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		return billSumMapper.selectByPrimaryKey(id);
 	}
 
 	@Override
@@ -104,5 +105,131 @@ public class BillServiceImpl implements BillService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public int count(Subject param) {
+		return 0;
+	}
+	
+	@Override
+	public int count(BillTpl param) {
+		return 0;
+	}
+	
+
+	@Override
+	public List<BillTpl> find(BillTpl param, String order, int currPage,
+			int pageSize) {
+		BillTplExample example = new BillTplExample();
+		BillTplExample.Criteria c = example.createCriteria();
+		proSearchParam(param, c);
+		example.setPageSize(pageSize);
+		example.setCurrPage(currPage);
+		return billTplMapper.selectPageByExample(example);
+	}
+
+	
+	private void proSearchParam(BillItem param, BillItemExample.Criteria criteria) {
+		if (param != null) {
+			if (StringUtils.isNotEmpty(param.getBillid())) {
+				criteria.andBillidEqualTo(param.getBillid());
+			}
+
+			if (StringUtils.isNotEmpty(param.getSubjectid())) {
+				criteria.andSubjectidEqualTo(param.getSubjectid());
+			}
+		}
+	}
+	
+	private void proSearchParam(BillSum param, BillSumExample.Criteria criteria) {
+		if (param != null) {
+			if (StringUtils.isNotEmpty(param.getBillno())) {
+				criteria.andBillnoEqualTo(param.getBillno());
+			}
+
+			if (StringUtils.isNotEmpty(param.getStatus())) {
+				criteria.andStatusEqualTo(param.getStatus());
+			}
+		}
+	}
+	
+	private void proSearchParam(BillTpl param, BillTplExample.Criteria criteria) {
+		if (param != null) {
+			if (StringUtils.isNotEmpty(param.getTitle())) {
+				criteria.andTitleLike("%"+param.getTitle()+"%");
+			}
+
+			if (StringUtils.isNotEmpty(param.getStatus())) {
+				criteria.andStatusEqualTo(param.getStatus());
+			}
+		}
+	}
+	
+	private void proSearchParam(Subject param, SubjectExample.Criteria criteria) {
+		if (param != null) {
+			if (StringUtils.isNotEmpty(param.getTitle())) {
+				criteria.andTitleLike("%"+param.getTitle()+"%");
+			}
+
+			if (StringUtils.isNotEmpty(param.getStatus())) {
+				criteria.andStatusEqualTo(param.getStatus());
+			}
+		}
+	}
+
+	@Override
+	public Integer addSubject(Subject param) {
+		return subjectMapper.insert(param);
+	}
+
+	@Override
+	public void updateSubject(Subject param) {
+		subjectMapper.updateByPrimaryKeySelective(param);
+	}
+
+	@Override
+	public Subject getSubject(Integer id) {
+		return subjectMapper.selectByPrimaryKey(id);
+	}
+
+
+	@Override
+	public Integer addBillSum(BillSum param) {
+		return null;
+	}
+
+	@Override
+	public void updateBillSum(BillSum param) {
+		
+	}
+
+	@Override
+	public void delBillSum(String id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Integer addBillTpl(BillTpl param) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updateBillTpl(BillTpl param) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public BillTpl getBillTpl(String id) {
+		return billTplMapper.selectByPrimaryKey(id);
+	}
+
+	@Override
+	public void delBillTpl(String id) {
+		billTplMapper.deleteByPrimaryKey(id);
+	}
+
 
 }

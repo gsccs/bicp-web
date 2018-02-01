@@ -1,4 +1,4 @@
-package com.gsccs.cmcc.statist.controller;
+package com.gsccs.cmcc.bill.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
