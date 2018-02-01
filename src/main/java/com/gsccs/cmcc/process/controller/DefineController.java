@@ -124,23 +124,23 @@ public class DefineController {
 	}
 
 	
-	@RequestMapping(value = "/save", method = RequestMethod.POST)
+	@RequestMapping(value = "/def/save", method = RequestMethod.POST)
 	@ResponseBody
 	public JsonMsg update(Define param, RedirectAttributes redirectAttributes) {
 		JsonMsg msg = new JsonMsg();
 		if (null != param) {
-			processService.updateProcessDef(param);
+			processService.saveDef(param);
 			msg.setSuccess(true);
-			msg.setMsg("信息修改成功!");
+			msg.setMsg("保存成功!");
 		} else {
 			msg.setSuccess(false);
-			msg.setMsg("信息修改失败!");
+			msg.setMsg("保存失败!");
 		}
 		return msg;
 	}
 
 	// 删除
-	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	@RequestMapping(value = "/def/delete", method = RequestMethod.GET)
 	@ResponseBody
 	public JsonMsg del(String id, HttpServletRequest request) {
 		JsonMsg msg = new JsonMsg();

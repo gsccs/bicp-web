@@ -56,8 +56,14 @@ public class ProcessServiceImpl implements ProcessService {
 	}
 
 	@Override
-	public void updateProcessDef(Define param) {
-		if (null != param) {
+	public void saveDef(Define param) {
+		if (null == param) {
+			return;
+		}
+		
+		if (null==param.getId()){
+			processDefMapper.insert(param);
+		}else{
 			processDefMapper.updateByPrimaryKey(param);
 		}
 	}

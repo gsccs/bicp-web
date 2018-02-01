@@ -130,7 +130,7 @@ public class TraceController {
 	public JsonMsg update(Define param, RedirectAttributes redirectAttributes) {
 		JsonMsg msg = new JsonMsg();
 		if (null != param) {
-			processService.updateProcessDef(param);
+			processService.saveDef(param);
 			msg.setSuccess(true);
 			msg.setMsg("信息修改成功!");
 		} else {

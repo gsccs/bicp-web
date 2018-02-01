@@ -17,7 +17,7 @@ public interface ProcessService {
 	public int count(Define param);
 	public Define getProcessDef(String id);
 	public void addProcessDef(Define param);
-	public void updateProcessDef(Define param);
+	public void saveDef(Define param);
 	public void deleteProcessDef(String id);
 	
 	

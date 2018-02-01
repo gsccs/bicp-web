@@ -28,12 +28,12 @@ th{
 <body>
 	
 <form id="tpl_form" action="" method="post" >
-	<input type="hidden" id="id" name="id" value="${processDef.id }">
+	<input type="hidden" id="id" name="id" value="${billTpl.id }">
 	<table cellspacing="0" cellpadding="0">
 		<tr class="thclass" style="height: 40px">
-			<th style="width: 130px;">流程名称<font style="color: red">*</font></th>
+			<th style="width: 130px;">模板名称<font style="color: red">*</font></th>
 			<td>
-				<input type="text" id="title" name="title" style="width:165px;" value="${processDef.title }" />
+				<input type="text" id="title" name="title" style="width:165px;" value="${billTpl.title }" />
 			</td>
 		</tr>
 	 	<tr class="thclass" style="height: 40px">
@@ -49,7 +49,7 @@ th{
 		<tr class="thclass" style="height: 40px">
 			<th style="width: 130px;">备注说明</th>
 			<td colspan="3">
-				<textarea rows="" cols="" id="remark" name="remark" style="width: 300px;height:70px;">${processDef.remark}</textarea>  
+				<textarea rows="" cols="" id="remark" name="remark" style="width: 300px;height:70px;">${billTpl.remark}</textarea>  
 			</td>
 		</tr>
 	</table>

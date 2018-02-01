@@ -79,24 +79,36 @@ th{
 				width : 150,
 				checkbox : true
 			},{
-				field : 'code',
-				title : '科目编码',
+				field : 'billno',
+				title : '帐单编号',
 				width : 150
 			},{
 				field : 'title',
-				title : '流程名称',
+				title : '帐单名称',
 				width : 150
 			},{
-				field : 'fee',
-				title : '默认金额',
+				field : 'sumfee',
+				title : '帐单金额',
 				width : 100
 			},{
-				field : 'groupid',
-				title : '分组',
+				field : 'disfee',
+				title : '折扣金额',
+				width : 150
+			},{
+				field : 'payfee',
+				title : '支付金额',
+				width : 150
+			},{
+				field : 'starttime',
+				title : '开始时间',
+				width : 150
+			},{
+				field : 'endtime',
+				title : '截至时间',
 				width : 150
 			},{
 				field : 'addtimestr',
-				title : '变更时间',
+				title : '生成时间',
 				width : 150
 			},{
 				field : 'status',

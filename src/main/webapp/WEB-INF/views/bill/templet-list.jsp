@@ -30,7 +30,7 @@ th{
                 <form id="searchForm">
                     <table>
                         <tr>
-                            <th>流程名称：</th>
+                            <th>模板名称：</th>
                             <td>
                                 <input id="query_title" name="title" value=""/></td>
                            
@@ -282,10 +282,6 @@ th{
 	        $("#list_data").datagrid("load", {});
 	        $("#searchForm").find("input").val("");
 	    }
-	    
-	    window.onload = function () { 
-	    	//selectCont(null);
-	    }
 
 	function selectCont(cid){
 		$('#task_list_data').datagrid({
@@ -296,7 +292,7 @@ th{
 	    	collapsible : false,//是否可折叠的 
 	    	fit : true,//自动大小 
 	    	loadMsg : '数据加载中请稍后……',
-	    	url : basepath+'/billtpl/datagrid?defid='+cid,
+	    	url : basepath+'/billtpl/tplkmdg?tplid='+cid,
 	    	remoteSort : false,
 	    	fitColums : true,
 	    	checkOnSelect : true,
@@ -351,13 +347,13 @@ th{
 				height : 400,
 				closed : false,
 				cache : false,
-				href : basepath+'/process/node/dataform?defid='+checkedRows[0].id,
+				href : basepath+'/billtpl/dataform?defid='+checkedRows[0].id,
 				modal : true,
 				buttons : [ {
 					text : '保   存',
 					handler : function() {
 						$('#node_form').form('submit',{
-							url : basepath+'/process/node/save',
+							url : basepath+'/billtpl/node/save',
 							success : function(data) {
 								var result = $.parseJSON(data);
 								if (result.success) {

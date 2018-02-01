@@ -48,11 +48,19 @@ public class BillTplController {
 		return "bill/templet-form";
 	}
 	
+	@RequestMapping(value = "/addkm", method = RequestMethod.GET)
+	public String addkmForm(String id,ModelMap map) {
+		Subject querykm = new Subject();
+		List<Subject> list = billService.find(querykm, "", 1, Integer.MAX_VALUE);
+		map.put("kmList", list);
+		return "bill/templet-kmform";
+	}
+	
 	
 	@RequestMapping(value = "/datagrid", method = RequestMethod.POST)
 	@ResponseBody
 	public Datagrid datagrid(BillTpl param,ModelMap map,
-			@RequestParam(defaultValue = " ordernum  ") String order,
+			@RequestParam(defaultValue = "") String order,
 			@RequestParam(defaultValue = "1") int page,
 			@RequestParam(defaultValue = "10") int rows, 
 			HttpServletRequest request) {

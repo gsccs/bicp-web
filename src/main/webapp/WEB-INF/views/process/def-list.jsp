@@ -132,7 +132,7 @@ th{
 		
 		//添加
 		function addFun() {
-	    	var ictprog_window_dialog = $('#form_window').dialog({
+	    	var window_dialog = $('#form_window').dialog({
     			title : '流程定义',
     			width : 600,
     			height : 400,
@@ -152,9 +152,8 @@ th{
     						success : function(data) {
     							var result = $.parseJSON(data);
     							if (result.success) {
-    								$('#prog_list_data').datagrid('load');
     								$('#list_data').datagrid('load');
-    								ictprog_window_dialog.dialog('close');
+    								window_dialog.dialog('close');
     							}
     							$.messager.show({
     								title : '提示',
@@ -167,7 +166,7 @@ th{
     				}
     			} ],
     			onLoad:function(){
-    				fmtDate();
+    				//fmtDate();
     			}
     		});
 	    }
@@ -312,8 +311,8 @@ th{
 	function addWayFun(){
 		var checkedRows = $("#list_data").datagrid('getChecked');
 		if(checkedRows.length == 1) {
-			var conway_window_dialog = $('#form_window').dialog({
-				title : '创建任务',
+			var window_dialog = $('#form_window').dialog({
+				title : '增加流程节点',
 				width : 600,
 				height : 400,
 				closed : false,
@@ -329,7 +328,7 @@ th{
 								var result = $.parseJSON(data);
 								if (result.success) {
 									$('#task_list_data').datagrid('load');
-									conway_window_dialog.dialog('close');
+									window_dialog.dialog('close');
 								}
 								$.messager.show({
 									title : '提示',
@@ -371,7 +370,7 @@ th{
 	function editWayFun(){
 		var checkedRows = $("#task_list_data").datagrid('getChecked');
 		if(checkedRows.length == 1) {
-			var conway_window_dialog = $('#form_window').dialog({
+			var window_dialog = $('#form_window').dialog({
 				title : '编辑节点',
 				width : 600,
 				height : 400,
@@ -388,7 +387,7 @@ th{
 								var result = $.parseJSON(data);
 								if (result.success) {
 									$('#task_list_data').datagrid('load');
-									conway_window_dialog.dialog('close');
+									window_dialog.dialog('close');
 								}
 								$.messager.show({
 									title : '提示',
