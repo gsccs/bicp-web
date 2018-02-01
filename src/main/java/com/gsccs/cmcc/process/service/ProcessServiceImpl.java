@@ -14,6 +14,11 @@ import com.gsccs.cmcc.process.model.DefineExample;
 import com.gsccs.cmcc.process.model.Node;
 import com.gsccs.cmcc.process.model.NodeExample;
 
+/**
+ * 流程定义
+ * @author x.d zhang
+ *
+ */
 @Service
 public class ProcessServiceImpl implements ProcessService {
 
@@ -84,7 +89,6 @@ public class ProcessServiceImpl implements ProcessService {
 	@Override
 	public void addProcessNode(Node param) {
 		if (null != param) {
-			param.setId(UUID.randomUUID().toString());
 			//param.setAddtime(new Date());
 			processNodeMapper.insert(param);
 		}
@@ -130,7 +134,7 @@ public class ProcessServiceImpl implements ProcessService {
 	}
 
 	@Override
-	public Node getProcessNode(String id) {
+	public Node getProcessNode(Integer id) {
 		return processNodeMapper.selectByPrimaryKey(id);
 	}
 

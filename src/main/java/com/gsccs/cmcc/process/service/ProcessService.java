@@ -24,7 +24,7 @@ public interface ProcessService {
 	public List<Node> find(Node param, String orderstr, int page,
 			int pagesize);
 	public int count(Node param);
-	public Node getProcessNode(String id);
+	public Node getProcessNode(Integer id);
 	public void addProcessNode(Node param);
 	public void updateProcessNode(Node param);
 	public void deleteProcessNode(String id);

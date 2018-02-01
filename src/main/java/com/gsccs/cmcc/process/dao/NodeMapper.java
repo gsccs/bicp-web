@@ -22,7 +22,7 @@ public interface NodeMapper {
 	List<Node> selectByExample(NodeExample example);
 	List<Node> selectPageByExample(NodeExample example);
 
-	Node selectByPrimaryKey(String id);
+	Node selectByPrimaryKey(Integer id);
 
 	int updateByExampleSelective(@Param("record") Node record,
 			@Param("example") NodeExample example);

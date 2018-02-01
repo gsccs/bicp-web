@@ -3,7 +3,7 @@
 <mapper namespace="com.gsccs.cmcc.process.dao.NodeMapper">
 
   <resultMap id="BaseResultMap" type="com.gsccs.cmcc.process.model.Node" >
-    <id column="id" property="id" jdbcType="VARCHAR" />
+    <id column="id" property="id" jdbcType="BIGINT" />
     <result column="tcode" property="tcode" jdbcType="VARCHAR" />
     <result column="tname" property="tname" jdbcType="VARCHAR" />
     <result column="defid" property="defid" jdbcType="VARCHAR" />
@@ -97,7 +97,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-	
+	FROM process_node
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

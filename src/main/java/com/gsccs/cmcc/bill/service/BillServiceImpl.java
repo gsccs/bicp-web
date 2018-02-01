@@ -178,13 +178,25 @@ public class BillServiceImpl implements BillService{
 	}
 
 	@Override
-	public Integer addSubject(Subject param) {
-		return subjectMapper.insert(param);
+	public Integer saveSubject(Subject param) {
+		Integer id = null;
+		if (null==param){
+			return null;
+		}
+		if (null==param.getId()){
+			subjectMapper.insert(param);
+			id = param.getId();
+		}else{
+			subjectMapper.updateByPrimaryKeySelective(param);
+			id = param.getId();
+		}
+		return id;
 	}
 
+	
 	@Override
-	public void updateSubject(Subject param) {
-		subjectMapper.updateByPrimaryKeySelective(param);
+	public void delSubject(Integer id) {
+		subjectMapper.deleteByPrimaryKey(id);
 	}
 
 	@Override

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.gsccs.cmcc.bill.model.Subject;
 import com.gsccs.cmcc.bill.service.BillService;
 import com.gsccs.plat.bass.Datagrid;
+import com.gsccs.plat.bass.JsonMsg;
 
 /**
  * 账单科目控制类
@@ -34,7 +35,11 @@ public class SubjectController {
 	public String treegrid(ModelMap map, HttpServletRequest request) {
 		return "bill/subject-list";
 	}
-
+	
+	@RequestMapping(value="/dataform",method = RequestMethod.GET)
+	protected String getSubjectForm(HttpServletRequest req) {
+		return "bill/subject-form";
+	}
 	
 	@RequestMapping(value = "/datagrid", method = RequestMethod.POST)
 	@ResponseBody
@@ -49,6 +54,38 @@ public class SubjectController {
 		datagrid.setRows(list);
 		datagrid.setTotal(Long.valueOf(count));
 		return datagrid;
+	}
+	
+	
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
+	@ResponseBody
+	public JsonMsg save(Subject param, HttpServletRequest request) {
+		JsonMsg msg = new JsonMsg();
+		if (null != param) {
+			billService.saveSubject(param);
+			msg.setSuccess(true);
+			msg.setMsg("保存成功!");
+		} else {
+			msg.setSuccess(false);
+			msg.setMsg("保存失败!");
+		}
+		return msg;
+	}
+
+	// 删除
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	@ResponseBody
+	public JsonMsg del(Integer id, HttpServletRequest request) {
+		JsonMsg msg = new JsonMsg();
+		if (null != id) {
+			billService.delSubject(id);
+			msg.setSuccess(true);
+			msg.setMsg("删除成功!");
+		} else {
+			msg.setSuccess(false);
+			msg.setMsg("删除失败!");
+		}
+		return msg;
 	}
 
 }

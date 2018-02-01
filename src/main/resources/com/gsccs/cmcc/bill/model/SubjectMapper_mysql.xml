@@ -4,9 +4,9 @@
   <resultMap id="BaseResultMap" type="com.gsccs.cmcc.bill.model.Subject" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="code" property="code" jdbcType="VARCHAR" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="groupid" property="groupid" jdbcType="VARCHAR" />
-    <result column="fee" property="fee" jdbcType="VARCHAR" />
+    <result column="fee" property="fee" jdbcType="FLOAT" />
     <result column="status" property="status" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -69,7 +69,7 @@
   </sql>
   
   <sql id="Base_Column_List" >
-    id, code, name, groupid, fee,status
+    id, code, title, groupid, fee,status
   </sql>
    
   <select id="selectPageByExample" resultMap="BaseResultMap" parameterType="com.gsccs.cmcc.bill.model.SubjectExample" >
@@ -105,12 +105,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.gsccs.cmcc.bill.model.Subject" >
-    insert into bill_subject (id, productid, smereult, 
-      reportid, corpid, amuserid, 
+    insert into bill_subject (id, title, title, 
+      groupid, fee, status, 
       addtime)
-    values (#{id,jdbcType=INTEGER}, #{productid,jdbcType=VARCHAR}, #{smereult,jdbcType=VARCHAR}, 
-      #{reportid,jdbcType=VARCHAR}, #{corpid,jdbcType=VARCHAR}, #{amuserid,jdbcType=VARCHAR}, 
-      #{addtime,jdbcType=VARCHAR})
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{groupid,jdbcType=VARCHAR}, #{fee,jdbcType=FLOAT}, #{status,jdbcType=VARCHAR}, 
+      now())
   </insert>
   
   <select id="countByExample" parameterType="com.gsccs.cmcc.bill.model.SubjectExample" resultType="java.lang.Integer" >
@@ -125,24 +125,22 @@
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.productid != null" >
-        productid = #{record.productid,jdbcType=VARCHAR},
+      <if test="record.code != null" >
+        code = #{record.code,jdbcType=VARCHAR},
       </if>
-      <if test="record.smereult != null" >
-        smereult = #{record.smereult,jdbcType=VARCHAR},
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
       </if>
-      <if test="record.reportid != null" >
-        reportid = #{record.reportid,jdbcType=VARCHAR},
+      <if test="record.groupid != null" >
+        groupid = #{record.groupid,jdbcType=VARCHAR},
       </if>
-      <if test="record.corpid != null" >
-        corpid = #{record.corpid,jdbcType=VARCHAR},
+      <if test="record.fee != null" >
+        fee = #{record.fee,jdbcType=FLOAT},
       </if>
-      <if test="record.amuserid != null" >
-        amuserid = #{record.amuserid,jdbcType=VARCHAR},
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
       </if>
-      <if test="record.addtime != null" >
-        addtime = #{record.addtime,jdbcType=VARCHAR},
-      </if>
+      addtime = now()
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -151,12 +149,12 @@
   <update id="updateByExample" parameterType="map" >
     update bill_subject
     set id = #{record.id,jdbcType=INTEGER},
-      productid = #{record.productid,jdbcType=VARCHAR},
-      smereult = #{record.smereult,jdbcType=VARCHAR},
-      reportid = #{record.reportid,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      groupid = #{record.groupid,jdbcType=VARCHAR},
       corpid = #{record.corpid,jdbcType=VARCHAR},
       amuserid = #{record.amuserid,jdbcType=VARCHAR},
-      addtime = #{record.addtime,jdbcType=VARCHAR}
+      addtime = now()
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -164,35 +162,33 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.gsccs.cmcc.bill.model.Subject" >
     update bill_subject
     <set >
-      <if test="productid != null" >
-        productid = #{productid,jdbcType=VARCHAR},
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
       </if>
-      <if test="smereult != null" >
-        smereult = #{smereult,jdbcType=VARCHAR},
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
       </if>
-      <if test="reportid != null" >
-        reportid = #{reportid,jdbcType=VARCHAR},
+      <if test="groupid != null" >
+        groupid = #{groupid,jdbcType=VARCHAR},
       </if>
-      <if test="corpid != null" >
-        corpid = #{corpid,jdbcType=VARCHAR},
+      <if test="fee != null" >
+        fee = #{fee,jdbcType=FLOAT},
       </if>
-      <if test="amuserid != null" >
-        amuserid = #{amuserid,jdbcType=VARCHAR},
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
       </if>
-      <if test="addtime != null" >
-        addtime = #{addtime,jdbcType=VARCHAR},
-      </if>
+      addtime = now(),
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.gsccs.cmcc.bill.model.Subject" >
     update bill_subject
-    set productid = #{productid,jdbcType=VARCHAR},
-      smereult = #{smereult,jdbcType=VARCHAR},
-      reportid = #{reportid,jdbcType=VARCHAR},
-      corpid = #{corpid,jdbcType=VARCHAR},
-      amuserid = #{amuserid,jdbcType=VARCHAR},
-      addtime = #{addtime,jdbcType=VARCHAR}
+    set title = #{title,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      groupid = #{groupid,jdbcType=VARCHAR},
+      fee = #{fee,jdbcType=FLOAT},
+      status = #{status,jdbcType=VARCHAR},
+      addtime = now()
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

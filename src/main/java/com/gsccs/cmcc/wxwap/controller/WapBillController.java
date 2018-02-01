@@ -41,8 +41,6 @@ public class WapBillController extends WapMpController{
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
-	private SybPayService sybPayService;
-	@Autowired
 	private BillService billService;
 	
 	/**
@@ -100,6 +98,7 @@ public class WapBillController extends WapMpController{
 			logger.info("账单不存在");
 		}
 		try {
+			SybPayService sybPayService =  new SybPayService();
 			BillSum billSum = billService.getBillSum(id);
 			if(null != billSum){
 				double payfee = billSum.getPayfee();
@@ -120,7 +119,7 @@ public class WapBillController extends WapMpController{
 	 * @return
 	 */
 	@RequestMapping("/payNotify")
-	public void payNotify(ModelMap map) {
+	public String payNotify(ModelMap map) {
 		
 		TreeMap<String,String> params = getParams(request);
 		try {
@@ -137,13 +136,14 @@ public class WapBillController extends WapMpController{
 		} catch (Exception e) {	//处理异常
 			e.printStackTrace();
 		}finally{				//收到通知,返回success
-			try {
+			/*try {
 				response.getOutputStream().write("success".getBytes());
 				response.flushBuffer();
 			} catch (IOException e) {
 				e.printStackTrace();
-			}
+			}*/
 		}
+		return "success";
 	}
 	
 	

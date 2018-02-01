@@ -1,5 +1,7 @@
 package com.gsccs.cmcc.bill.model;
 
+import java.util.Date;
+
 
 /**
  * 账单科目 
@@ -9,11 +11,12 @@ package com.gsccs.cmcc.bill.model;
 public class Subject {
 	
 	private Integer id;
-	private String code;		//账单编码
-	private String title;		//账单名称
-	private String groupid;		//分组
-	private Double fee;			//默认金额
-	private String status;		//状态 启用 关闭
+	private String code;			//科目编码
+	private String title;			//科目名称
+	private String groupid;			//分组
+	private Float fee = 0.00f;		//默认金额
+	private String status;			//状态 启用 关闭
+	private Date addtime;
 
 	public Integer getId() {
 		return id;
@@ -55,14 +58,20 @@ public class Subject {
 		this.groupid = groupid;
 	}
 
-	public Double getFee() {
+	public Float getFee() {
 		return fee;
 	}
 
-	public void setFee(Double fee) {
+	public void setFee(Float fee) {
 		this.fee = fee;
 	}
-	
-	
+
+	public Date getAddtime() {
+		return addtime;
+	}
+
+	public void setAddtime(Date addtime) {
+		this.addtime = addtime;
+	}
 	
 }

@@ -15,8 +15,8 @@ import com.gsccs.cmcc.bill.model.BillSum;
  */
 public interface BillService {
 
-	public Integer addSubject(Subject param);
-	public void updateSubject(Subject param);
+	public Integer saveSubject(Subject param);
+	public void delSubject(Integer id);
 	public Subject getSubject(Integer id);
 	
 	public Integer add(BillItem recomd);

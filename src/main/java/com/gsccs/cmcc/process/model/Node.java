@@ -7,7 +7,7 @@ package com.gsccs.cmcc.process.model;
  */
 public class Node {
 
-	private String id;
+	private Integer id;
 	private String tcode;		//任务KEY
 	private String tname;		//任务名称
 	private String defid;		//流程定义ID 
@@ -17,11 +17,11 @@ public class Node {
 	private Integer ordernum;	//排序
 	private String status;
 	
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

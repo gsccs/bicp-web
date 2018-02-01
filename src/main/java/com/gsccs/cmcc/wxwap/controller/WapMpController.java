@@ -28,8 +28,8 @@ public class WapMpController{
 	protected WxAppService wxAppService;
 	@Autowired
 	protected HttpServletRequest request;
-	@Autowired
-	protected HttpServletResponse response;
+	//@Autowired
+	//protected HttpServletResponse response;
 	
 	public String getReqUrl(){
 		StringBuilder sb = new StringBuilder();

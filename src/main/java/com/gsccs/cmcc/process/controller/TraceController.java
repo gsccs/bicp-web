@@ -22,13 +22,13 @@ import com.gsccs.plat.bass.JsonMsg;
 
 
 /**
- * 流程定义管理
+ * 流程流转管理
  * @author x.d zhang
  *
  */
 @Controller
-@RequestMapping(value = "/process")
-public class ProcessController {
+@RequestMapping(value = "/trace")
+public class TraceController {
 
 	@Autowired
 	private ProcessService processService;
@@ -37,6 +37,7 @@ public class ProcessController {
 	protected String getDefList(HttpServletRequest req) {
 		return "process/def-list";
 	}
+	
 	@RequestMapping(value="/node",method = RequestMethod.GET)
 	protected String getNodeList(HttpServletRequest req) {
 		return "process/node-list";
@@ -60,13 +61,13 @@ public class ProcessController {
 	@RequestMapping(value = "/node/datagrid", method = RequestMethod.POST)
 	@ResponseBody
 	public Datagrid getNodeList(
-			String pid,
+			String defid,
 			@RequestParam(defaultValue = "1") int page,
 			@RequestParam(defaultValue = "10") int rows,
 			ModelMap map) {
 		Datagrid grid = new Datagrid();
 		Node param = new Node();
-		param.setDefid(pid);
+		param.setDefid(defid);
 		List<Node> list = processService.find(param, "ordernum", page, rows);
 		int count = processService.count(param);
 		grid.setRows(list);
@@ -103,13 +104,24 @@ public class ProcessController {
 
 
 	// 修改
-	@RequestMapping(value = "/dataform", method = RequestMethod.GET)
-	public String showUpdateForm(String id, Model model) {
+	@RequestMapping(value = "/def/dataform", method = RequestMethod.GET)
+	public String showDefForm(String id, Model model) {
 		if (null != id && id.trim().length() > 0) {
 			Define processdef = processService.getProcessDef(id);
 			model.addAttribute("processdef", processdef);
 		}
 		return "process/def-form";
+	}
+	
+	// 修改
+	@RequestMapping(value = "/node/dataform", method = RequestMethod.GET)
+	public String showNodeForm(Integer id,String defid, Model model) {
+		if (null != id) {
+			Node node = processService.getProcessNode(id);
+			model.addAttribute("processnode", node);
+		}
+		model.addAttribute("defid", defid);
+		return "process/node-form";
 	}
 
 	

@@ -32,7 +32,7 @@ th{
                         <tr>
                             <th>流程名称：</th>
                             <td>
-                                <input id="notice_title" name="title" value=""/></td>
+                                <input id="query_title" name="title" value=""/></td>
                            
                             <td><a class="easyui-linkbutton" href="javascript:void(0);" onclick="searchFunc();">查找</a></td>
                         </tr>
@@ -53,21 +53,21 @@ th{
             <div id="toobar" style="padding:5px;height:auto">
 				<div style="margin-bottom:5px">
 					<shiro:hasPermission name="corp:create">
-					<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true"  onClick="addFun()">新增</a>
+					<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true"  onClick="addFun()">新增流程</a>
 					</shiro:hasPermission>
 					<shiro:hasPermission name="corp:update">
-					<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onClick="editFun()">修改</a>
+					<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onClick="editFun()">修改流程</a>
 					</shiro:hasPermission>
 					<shiro:hasPermission name="corp:delete">
-					<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onClick="delFun()">删除</a>
+					<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onClick="delFun()">删除流程</a>
 					</shiro:hasPermission>
-					<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onClick="addWayFun()">新增联系方式</a>
-					<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onClick="editWayFun()">编辑联系方式</a>
-					<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onClick="delWayFun()">删除联系方式</a>
+					<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onClick="addWayFun()">新增节点</a>
+					<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onClick="editWayFun()">编辑节点</a>
+					<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onClick="delWayFun()">删除节点</a>
 				</div>
     		</div>
 	</div>
-	<div id="contact_window"></div>
+	<div id="form_window"></div>
 	<script type="text/javascript">
 		var basepath="${pageContext.request.contextPath}";
 		$('#list_data').datagrid({
@@ -93,11 +93,11 @@ th{
 				checkbox : true
 			},{
 				field : 'pcode',
-				title : '项目编号',
+				title : '流程编码',
 				width : 150
 			},{
 				field : 'title',
-				title : '项目名称',
+				title : '流程名称',
 				width : 150
 			},{
 				field : 'needername',
@@ -109,7 +109,7 @@ th{
 				width : 150
 			},{
 				field : 'status',
-				title : '项目状态',
+				title : '状态',
 				width : 150
 			}] ],
 			toolbar : '#toobar',
@@ -132,8 +132,8 @@ th{
 		
 		//添加
 		function addFun() {
-	    	var ictprog_window_dialog = $('#contact_window').dialog({
-    			title : '创建项目',
+	    	var ictprog_window_dialog = $('#form_window').dialog({
+    			title : '流程定义',
     			width : 600,
     			height : 400,
     			closed : false,
@@ -143,12 +143,12 @@ th{
     			buttons : [ {
     				text : '保   存',
     				handler : function() {
-    					var valid = $("#projcet_form").form('validate');
+    					var valid = $("#def_form").form('validate');
     					if(!valid){
     						return;
     					}
-    					$('#project_form').form('submit',{
-    						url : basepath+'/projcet/save',
+    					$('#def_form').form('submit',{
+    						url : basepath+'/process/def/save',
     						success : function(data) {
     							var result = $.parseJSON(data);
     							if (result.success) {
@@ -177,7 +177,7 @@ th{
 	    function editFun() {
 	    	var checkedRows = $("#list_data").datagrid('getChecked');
 	    	if (checkedRows.length == 1) {
-	    		document.location = basepath+'/project/dataform?id='+checkedRows[0].id;
+	    		document.location = basepath+'/process/def/dataform?id='+checkedRows[0].id;
 	    	} else if(checkedRows.length > 1) {
 	    		$.messager.show({
 	    			title : '提示',
@@ -203,7 +203,7 @@ th{
 	    			if(r) {
 	    				
 	    				$.ajax({
-	    					url : basepath+'/project/delete',
+	    					url : basepath+'/process/def/del',
 	    					data : {
 	    						id : checkedRows[0].id
 	    					},
@@ -263,7 +263,7 @@ th{
 	    	collapsible : false,//是否可折叠的 
 	    	fit : true,//自动大小 
 	    	loadMsg : '数据加载中请稍后……',
-	    	url : basepath+'/process/node/datagrid?pid='+cid,
+	    	url : basepath+'/process/node/datagrid?defid='+cid,
 	    	remoteSort : false,
 	    	fitColums : true,
 	    	checkOnSelect : true,
@@ -276,6 +276,14 @@ th{
 	    		width : 50,
 	    		checkbox : true
 	    	},{
+	    		field : 'tcode',
+	    		title : '节点KEY',
+	    		width : 80
+	    	},{
+	    		field : 'tname',
+	    		title : '节点名称',
+	    		width : 80
+	    	},{
 	    		field : 'username',
 	    		title : '处理人',
 	    		width : 80
@@ -285,7 +293,7 @@ th{
 	    		width : 100
 	    	},{
 	    		field : 'status',
-	    		title : '任务状态',
+	    		title : '状态',
 	    		width : 100
 	    	}] ]
 	    });
@@ -304,19 +312,19 @@ th{
 	function addWayFun(){
 		var checkedRows = $("#list_data").datagrid('getChecked');
 		if(checkedRows.length == 1) {
-			var conway_window_dialog = $('#contact_window').dialog({
+			var conway_window_dialog = $('#form_window').dialog({
 				title : '创建任务',
 				width : 600,
 				height : 400,
 				closed : false,
 				cache : false,
-				href : basepath+'/task/dataform?cid='+checkedRows[0].id,
+				href : basepath+'/process/node/dataform?defid='+checkedRows[0].id,
 				modal : true,
 				buttons : [ {
 					text : '保   存',
 					handler : function() {
-						$('#way_form').form('submit',{
-							url : basepath+'/task/save',
+						$('#node_form').form('submit',{
+							url : basepath+'/process/node/save',
 							success : function(data) {
 								var result = $.parseJSON(data);
 								if (result.success) {
@@ -363,19 +371,19 @@ th{
 	function editWayFun(){
 		var checkedRows = $("#task_list_data").datagrid('getChecked');
 		if(checkedRows.length == 1) {
-			var conway_window_dialog = $('#contact_window').dialog({
-				title : '编辑任务',
+			var conway_window_dialog = $('#form_window').dialog({
+				title : '编辑节点',
 				width : 600,
 				height : 400,
 				closed : false,
 				cache : false,
-				href : basepath+'/task/dataform?id='+checkedRows[0].id,
+				href : basepath+'/process/node/dataform?id='+checkedRows[0].id,
 				modal : true,
 				buttons : [ {
 					text : '保   存',
 					handler : function() {
-						$('#way_form').form('submit',{
-							url : basepath+'/task/save',
+						$('#node_form').form('submit',{
+							url : basepath+'/process/node/save',
 							success : function(data) {
 								var result = $.parseJSON(data);
 								if (result.success) {
@@ -424,7 +432,7 @@ th{
 			$.messager.confirm('确认', '您是否要删除当前选中的记录？', function(r) {
 				if(r) {
 					$.ajax({
-						url : basepath+'/task/delete',
+						url : basepath+'/process/node/del',
 						data : {
 							id : checkedRows[0].id
 						},
