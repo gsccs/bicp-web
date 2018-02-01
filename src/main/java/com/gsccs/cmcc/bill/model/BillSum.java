@@ -12,10 +12,10 @@ import java.util.List;
 public class BillSum {
 
 	private Long id;
-	private String billno;		//账单编号
-	private String userid;		//付款人
-	private Date starttime;		//开始时间
-	private Date endtime;		//退款时间
+	private String billno;			//账单编号
+	private String userid;			//付款人
+	private Date starttime;			//开始时间
+	private Date endtime;			//退款时间
 	private Double sumfee = 0.00;			//汇总金额
 	private Double disfee = 0.00;			//折扣金额
 	private Double payfee = 0.00;			//支付金额

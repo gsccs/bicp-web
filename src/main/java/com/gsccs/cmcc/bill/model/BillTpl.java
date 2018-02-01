@@ -1,7 +1,6 @@
 package com.gsccs.cmcc.bill.model;
 
 import java.util.Date;
-import java.util.List;
 
 
 /**
@@ -11,19 +10,19 @@ import java.util.List;
  */
 public class BillTpl {
 
-	private String id;
+	private Integer id;
 	private String title;
 	private String status;
 	private Date addtime;
+	private String kmids;
 	private String remark;
 	
-	List<Subject> subjects;
 	
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -43,13 +42,6 @@ public class BillTpl {
 		this.status = status;
 	}
 
-	public List<Subject> getSubjects() {
-		return subjects;
-	}
-
-	public void setSubjects(List<Subject> subjects) {
-		this.subjects = subjects;
-	}
 
 	public Date getAddtime() {
 		return addtime;
@@ -66,4 +58,13 @@ public class BillTpl {
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
+
+	public String getKmids() {
+		return kmids;
+	}
+
+	public void setKmids(String kmids) {
+		this.kmids = kmids;
+	}
+	
 }

@@ -277,18 +277,18 @@ public class BillItemExample extends BaseExample{
             return (Criteria) this;
         }
 
-        public Criteria andSubjectidIsNull() {
-            addCriterion("subjectid is null");
+        public Criteria andKmidIsNull() {
+            addCriterion("kmid is null");
             return (Criteria) this;
         }
 
-        public Criteria andSubjectidIsNotNull() {
-            addCriterion("subjectid is not null");
+        public Criteria andKmidIsNotNull() {
+            addCriterion("kmid is not null");
             return (Criteria) this;
         }
 
-        public Criteria andSubjectidEqualTo(String value) {
-            addCriterion("subjectid =", value, "subjectid");
+        public Criteria andKmidEqualTo(Integer value) {
+            addCriterion("kmid =", value, "kmid");
             return (Criteria) this;
         }
 

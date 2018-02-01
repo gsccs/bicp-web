@@ -5,9 +5,10 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="billid" property="billid" jdbcType="VARCHAR" />
     <result column="userid" property="userid" jdbcType="VARCHAR" />
-    <result column="subjectid" property="subjectid" jdbcType="VARCHAR" />
-    <result column="fee" property="fee" jdbcType="VARCHAR" />
+    <result column="kmid" property="kmid" jdbcType="INTEGER" />
+    <result column="fee" property="fee" jdbcType="FLOAT" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="addtime" property="addtime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -67,10 +68,10 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Base_Column_List" >
-    id, billid, subjectid, userid, fee, remark
-  </sql>
   
+  <sql id="Base_Column_List" >
+    id, billid, kmid, userid, fee, remark,addtime
+  </sql>
   
   <select id="selectPageByExample" resultMap="BaseResultMap" parameterType="com.gsccs.cmcc.bill.model.BillItemExample" >
     select
@@ -119,10 +120,14 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.gsccs.cmcc.bill.model.BillItem" >
-    insert into bill_item (id, billid, subjectid, userid, fee, remark)
-    values (#{id,jdbcType=INTEGER}, #{billid,jdbcType=VARCHAR}, #{subjectid,jdbcType=VARCHAR}, 
-      #{userid,jdbcType=VARCHAR}, #{fee,jdbcType=VARCHAR}, 
-      #{remark,jdbcType=TIMESTAMP})
+    insert into bill_item (billid, kmid, userid, fee, addtime,remark)
+    values (
+    	#{billid,jdbcType=VARCHAR}, 
+    	#{kmid,jdbcType=INTEGER}, 
+      	#{userid,jdbcType=VARCHAR}, 
+      	#{fee,jdbcType=FLOAT}, 
+      	now(), 
+      	#{remark,jdbcType=TIMESTAMP})
   </insert>
   
   <select id="countByExample" parameterType="com.gsccs.cmcc.bill.model.BillItemExample" resultType="java.lang.Integer" >
@@ -137,23 +142,23 @@
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.reportid != null" >
-        reportid = #{record.reportid,jdbcType=VARCHAR},
+      <if test="record.billid != null" >
+        billid = #{record.billid,jdbcType=VARCHAR},
       </if>
-      <if test="record.productid != null" >
-        productid = #{record.productid,jdbcType=VARCHAR},
+      <if test="record.kmid != null" >
+        kmid = #{record.kmid,jdbcType=INTEGER},
       </if>
-      <if test="record.remresult != null" >
-        remresult = #{record.remresult,jdbcType=VARCHAR},
+      <if test="record.fee != null" >
+        fee = #{record.fee,jdbcType=FLOAT},
       </if>
-      <if test="record.amuserid != null" >
-        amuserid = #{record.amuserid,jdbcType=VARCHAR},
+      <if test="record.userid != null" >
+        userid = #{record.userid,jdbcType=VARCHAR},
       </if>
-      <if test="record.corpid != null" >
-        corpid = #{record.corpid,jdbcType=VARCHAR},
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
       </if>
       <if test="record.addtime != null" >
-        addtime = #{record.addtime,jdbcType=TIMESTAMP},
+        addtime = now(),
       </if>
     </set>
     <if test="_parameter != null" >
@@ -164,10 +169,10 @@
     update bill_item
     set id = #{record.id,jdbcType=INTEGER},
       billid = #{record.billid,jdbcType=VARCHAR},
-      subjectid = #{record.subjectid,jdbcType=VARCHAR},
+      kmid = #{record.kmid,jdbcType=VARCHAR},
       userid = #{record.userid,jdbcType=VARCHAR},
-      corpid = #{record.corpid,jdbcType=VARCHAR},
-      addtime = #{record.addtime,jdbcType=TIMESTAMP}
+      remark = #{record.remark,jdbcType=VARCHAR},
+      addtime = now()
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -176,9 +181,10 @@
   <update id="updateByPrimaryKey" parameterType="com.gsccs.cmcc.bill.model.BillItem" >
     update bill_item
     set billid = #{billid,jdbcType=VARCHAR},
-      subjectid = #{subjectid,jdbcType=VARCHAR},
+      kmid = #{kmid,jdbcType=VARCHAR},
       userid = #{userid,jdbcType=VARCHAR},
       fee = #{fee,jdbcType=VARCHAR},
+      addtime = now(),
       remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>

@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>缴费科目列表</title>
+<title>帐单列表</title>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/static/easyui/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css"
@@ -65,7 +65,7 @@ th{
 			collapsible : false,//是否可折叠的 
 			fit : true,//自动大小 
 			loadMsg : '数据加载中请稍后……',
-			url : basepath+'/billkm/datagrid',
+			url : basepath+'/billqy/datagrid',
 			remoteSort : false,
 			fitColums : true,
 			checkOnSelect : true,
@@ -128,7 +128,7 @@ th{
     			height : 400,
     			closed : false,
     			cache : false,
-    			href : basepath+'/billkm/dataform',
+    			href : basepath+'/billqy/dataform',
     			modal : true,
     			buttons : [ {
     				text : '保   存',

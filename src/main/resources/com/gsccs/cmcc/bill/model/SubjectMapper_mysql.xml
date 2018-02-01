@@ -105,10 +105,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.gsccs.cmcc.bill.model.Subject" >
-    insert into bill_subject (id, title, title, 
+    insert into bill_subject (id, code, title, 
       groupid, fee, status, 
       addtime)
-    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
       #{groupid,jdbcType=VARCHAR}, #{fee,jdbcType=FLOAT}, #{status,jdbcType=VARCHAR}, 
       now())
   </insert>
@@ -148,12 +148,12 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update bill_subject
-    set id = #{record.id,jdbcType=INTEGER},
-      title = #{record.title,jdbcType=VARCHAR},
-      title = #{record.title,jdbcType=VARCHAR},
+    set 
+      code = #{record.code,jdbcType=VARCHAR},
+      code = #{record.code,jdbcType=VARCHAR},
       groupid = #{record.groupid,jdbcType=VARCHAR},
-      corpid = #{record.corpid,jdbcType=VARCHAR},
-      amuserid = #{record.amuserid,jdbcType=VARCHAR},
+      fee = #{record.fee,jdbcType=FLOAT},
+      status = #{record.status,jdbcType=VARCHAR},
       addtime = now()
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />

@@ -135,8 +135,8 @@ public class BillServiceImpl implements BillService{
 				criteria.andBillidEqualTo(param.getBillid());
 			}
 
-			if (StringUtils.isNotEmpty(param.getSubjectid())) {
-				criteria.andSubjectidEqualTo(param.getSubjectid());
+			if (null != param.getKmid()) {
+				criteria.andKmidEqualTo(param.getKmid());
 			}
 		}
 	}
@@ -241,6 +241,22 @@ public class BillServiceImpl implements BillService{
 	@Override
 	public void delBillTpl(String id) {
 		billTplMapper.deleteByPrimaryKey(id);
+	}
+
+	@Override
+	public Integer saveBillTpl(BillTpl param) {
+		Integer id = null;
+		if (null==param){
+			return null;
+		}
+		if (null==param.getId()){
+			billTplMapper.insert(param);
+			id = param.getId();
+		}else{
+			billTplMapper.updateByPrimaryKeySelective(param);
+			id = param.getId();
+		}
+		return id;
 	}
 
 

@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -13,21 +12,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.gsccs.cmcc.bill.model.BillTpl;
+import com.gsccs.cmcc.bill.model.BillItem;
+import com.gsccs.cmcc.bill.model.BillSum;
 import com.gsccs.cmcc.bill.service.BillService;
 import com.gsccs.plat.bass.Datagrid;
-import com.gsccs.plat.bass.JsonMsg;
 
 /**
- * 账单模板控制类
+ * 用户帐单
  * 
  * @author x.d zhang
  * 
  */
 
 @Controller
-@RequestMapping("/billtpl")
-public class TempletController {
+@RequestMapping("/billqy")
+public class BillUserController {
 
 	@Autowired
 	private BillService billService;
@@ -35,48 +34,35 @@ public class TempletController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String tplList(ModelMap map, HttpServletRequest request) {
-		return "bill/templet-list";
+		return "bill/sum-list";
 	}
 	
 	@RequestMapping(value = "/dataform", method = RequestMethod.GET)
 	public String tplForm(String id,ModelMap map) {
-		if (StringUtils.isNotEmpty(id)){
-			BillTpl billTpl = billService.getBillTpl(id);
-			map.put("billTpl", billTpl);
-		}
-		return "bill/templet-form";
+		BillSum billSum = billService.getBillSum(id);
+		BillItem queryItem = new BillItem();
+		queryItem.setBillid(id);
+		List<BillItem> itemList = billService.find(queryItem, "", 1, Integer.MAX_VALUE);
+		billSum.setItemList(itemList);
+		map.put("billSum", billSum);
+		return "bill/sum-form";
 	}
 	
 	
 	@RequestMapping(value = "/datagrid", method = RequestMethod.POST)
 	@ResponseBody
-	public Datagrid datagrid(BillTpl param,ModelMap map,
+	public Datagrid datagrid(BillSum param,ModelMap map,
 			@RequestParam(defaultValue = " ordernum  ") String order,
 			@RequestParam(defaultValue = "1") int page,
 			@RequestParam(defaultValue = "10") int rows, 
 			HttpServletRequest request) {
 		Datagrid datagrid = new Datagrid();
-		List<BillTpl> list = billService.find(param, order, page, rows);
+		List<BillSum> list = billService.find(param, order, page, rows);
 		int count = billService.count(param);
 		datagrid.setRows(list);
 		datagrid.setTotal(Long.valueOf(count));
 		return datagrid;
 	}
 	
-	
-	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	@ResponseBody
-	public JsonMsg save(BillTpl param, HttpServletRequest request) {
-		JsonMsg msg = new JsonMsg();
-		if (null != param) {
-			billService.saveBillTpl(param);
-			msg.setSuccess(true);
-			msg.setMsg("保存成功!");
-		} else {
-			msg.setSuccess(false);
-			msg.setMsg("保存失败!");
-		}
-		return msg;
-	}
 
 }

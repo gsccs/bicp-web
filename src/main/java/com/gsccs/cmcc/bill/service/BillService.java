@@ -29,6 +29,7 @@ public interface BillService {
 	public BillSum getBillSum(String id);
 	public void delBillSum(String id);
 	
+	public Integer saveBillTpl(BillTpl param);
 	public Integer addBillTpl(BillTpl param);
 	public void updateBillTpl(BillTpl param);
 	public BillTpl getBillTpl(String id);

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>流程定义表单</title>
+<title>账单模板表单</title>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/static/easyui/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css"
@@ -27,25 +27,13 @@ th{
 </head>
 <body>
 	
-<form id="billkm_form" action="" method="post" >
-	<input type="hidden" id="id" name="id" value="${billKm.id }">
+<form id="tpl_form" action="" method="post" >
+	<input type="hidden" id="id" name="id" value="${processDef.id }">
 	<table cellspacing="0" cellpadding="0">
 		<tr class="thclass" style="height: 40px">
-			<th style="width: 130px;">科目名称<font style="color: red">*</font></th>
+			<th style="width: 130px;">流程名称<font style="color: red">*</font></th>
 			<td>
-				<input type="text" id="title" name="title" style="width:165px;" value="${billKm.title }" />
-			</td>
-		</tr>
-		<tr class="thclass" style="height: 40px">
-			<th style="width: 130px;">科目编码<font style="color: red">*</font></th>
-			<td>
-				<input type="text" id="code" name="code" style="width:165px;" value="${billKm.title }" />
-			</td>
-		</tr>
-		<tr class="thclass" style="height: 40px">
-			<th style="width: 130px;">默认金额<font style="color: red">*</font></th>
-			<td>
-				<input type="text" id="fee" name="fee" style="width:165px;" value="${billKm.fee }" />
+				<input type="text" id="title" name="title" style="width:165px;" value="${processDef.title }" />
 			</td>
 		</tr>
 	 	<tr class="thclass" style="height: 40px">

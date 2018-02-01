@@ -1,5 +1,7 @@
 package com.gsccs.cmcc.bill.model;
 
+import java.util.Date;
+
 
 /**
  * 账单明细
@@ -10,9 +12,10 @@ public class BillItem {
 
 	private Long id;
 	private String billid;			//账单ID
-	private String subjectid;		//科目ID
-	private Double fee;				//金额
+	private Integer kmid;			//科目ID
+	private Float fee;				//金额
 	private String remark;			//备注信息
+	private Date addtime;
 	
 	public Long getId() {
 		return id;
@@ -26,16 +29,10 @@ public class BillItem {
 	public void setBillid(String billid) {
 		this.billid = billid;
 	}
-	public String getSubjectid() {
-		return subjectid;
-	}
-	public void setSubjectid(String subjectid) {
-		this.subjectid = subjectid;
-	}
-	public Double getFee() {
+	public Float getFee() {
 		return fee;
 	}
-	public void setFee(Double fee) {
+	public void setFee(Float fee) {
 		this.fee = fee;
 	}
 	public String getRemark() {
@@ -44,5 +41,20 @@ public class BillItem {
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
+	
+	public Integer getKmid() {
+		return kmid;
+	}
+	public void setKmid(Integer kmid) {
+		this.kmid = kmid;
+	}
+	public Date getAddtime() {
+		return addtime;
+	}
+	public void setAddtime(Date addtime) {
+		this.addtime = addtime;
+	}
+	
+	
 	
 }

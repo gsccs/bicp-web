@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -37,9 +38,14 @@ public class SubjectController {
 	}
 	
 	@RequestMapping(value="/dataform",method = RequestMethod.GET)
-	protected String getSubjectForm(HttpServletRequest req) {
+	protected String getSubjectForm(Integer id,ModelMap map) {
+		if (null != id){
+			Subject subject = billService.getSubject(id);
+			map.put("billKm", subject);
+		}
 		return "bill/subject-form";
 	}
+	
 	
 	@RequestMapping(value = "/datagrid", method = RequestMethod.POST)
 	@ResponseBody

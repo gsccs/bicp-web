@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import com.gsccs.cmcc.bill.model.BillSumExample;
 import com.gsccs.cmcc.bill.model.BillTpl;
 import com.gsccs.cmcc.bill.model.BillTplExample;
+import com.gsccs.cmcc.bill.model.Subject;
 
 public interface BillTplMapper {
 
@@ -26,4 +27,5 @@ public interface BillTplMapper {
 			@Param("example") BillSumExample example);
 
 	int updateByPrimaryKey(BillTpl record);
+	int updateByPrimaryKeySelective(BillTpl record);
 }
