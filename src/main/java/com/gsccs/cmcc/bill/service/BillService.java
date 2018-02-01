@@ -45,6 +45,8 @@ public interface BillService {
 	public List<BillTpl> find(BillTpl param, String order, int currPage,
 			int pageSize);
 	
+	public List<Subject> find(String ids);
+	
 	public int count(BillSum param);
 	public int count(BillItem param);
 	public int count(Subject param);

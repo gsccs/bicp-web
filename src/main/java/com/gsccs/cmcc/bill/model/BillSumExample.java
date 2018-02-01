@@ -137,7 +137,11 @@ public class BillSumExample extends BaseExample{
             return (Criteria) this;
         }
 
-
+        public Criteria andUseridEqualTo(String value) {
+            addCriterion("userid =", value, "userid");
+            return (Criteria) this;
+        }
+        
         public Criteria andBillnoIsNull() {
             addCriterion("billno is null");
             return (Criteria) this;

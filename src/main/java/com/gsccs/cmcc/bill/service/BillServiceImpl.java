@@ -1,5 +1,6 @@
 package com.gsccs.cmcc.bill.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -146,6 +147,10 @@ public class BillServiceImpl implements BillService{
 			if (StringUtils.isNotEmpty(param.getBillno())) {
 				criteria.andBillnoEqualTo(param.getBillno());
 			}
+			
+			if (StringUtils.isNotEmpty(param.getUserid())) {
+				criteria.andUseridEqualTo(param.getUserid());
+			}
 
 			if (StringUtils.isNotEmpty(param.getStatus())) {
 				criteria.andStatusEqualTo(param.getStatus());
@@ -174,6 +179,7 @@ public class BillServiceImpl implements BillService{
 			if (StringUtils.isNotEmpty(param.getStatus())) {
 				criteria.andStatusEqualTo(param.getStatus());
 			}
+			
 		}
 	}
 
@@ -257,6 +263,29 @@ public class BillServiceImpl implements BillService{
 			id = param.getId();
 		}
 		return id;
+	}
+
+	@Override
+	public List<Subject> find(String ids) {
+		if (StringUtils.isEmpty(ids)){
+			return null;
+		}
+		String[] kmids = ids.split(",");
+		List<Integer> idList = new ArrayList<Integer>();
+		if (null!=kmids && kmids.length>0){
+			for(String id:kmids){
+				idList.add(Integer.valueOf(id));
+			}
+		}
+		
+		if (null != idList && idList.size()>0){
+			SubjectExample example = new SubjectExample();
+			SubjectExample.Criteria c = example.createCriteria();
+			c.andIdIn(idList);
+			return subjectMapper.selectPageByExample(example);
+		}
+		return null;
+		
 	}
 
 

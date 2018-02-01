@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gsccs.cmcc.bill.model.BillTpl;
+import com.gsccs.cmcc.bill.model.Subject;
 import com.gsccs.cmcc.bill.service.BillService;
 import com.gsccs.plat.bass.Datagrid;
 import com.gsccs.plat.bass.JsonMsg;
@@ -27,7 +28,7 @@ import com.gsccs.plat.bass.JsonMsg;
 
 @Controller
 @RequestMapping("/billtpl")
-public class TempletController {
+public class BillTplController {
 
 	@Autowired
 	private BillService billService;
@@ -60,6 +61,29 @@ public class TempletController {
 		int count = billService.count(param);
 		datagrid.setRows(list);
 		datagrid.setTotal(Long.valueOf(count));
+		return datagrid;
+	}
+	
+	/**
+	 * 模板科目查询
+	 * @param param
+	 * @param map
+	 * @param order
+	 * @param page
+	 * @param rows
+	 * @return
+	 */
+	@RequestMapping(value = "/tplkmdg", method = RequestMethod.POST)
+	@ResponseBody
+	public Datagrid tplkmdg(String tplid,ModelMap map,
+			@RequestParam(defaultValue = " ordernum  ") String order,
+			@RequestParam(defaultValue = "1") int page,
+			@RequestParam(defaultValue = "10") int rows) {
+		Datagrid datagrid = new Datagrid();
+		String kmids = billService.getBillTpl(tplid).getKmids();
+		List<Subject> list = billService.find(kmids);
+		datagrid.setRows(list);
+		datagrid.setTotal(Long.valueOf(list.size()));
 		return datagrid;
 	}
 	

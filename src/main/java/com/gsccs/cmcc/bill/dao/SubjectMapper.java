@@ -15,7 +15,6 @@ public interface SubjectMapper {
     int insert(Subject record);
     List<Subject> selectPageByExample(SubjectExample example);
     Subject selectByPrimaryKey(Integer id);
-    int updateByExample(@Param("record") Subject record, @Param("example") SubjectExample example);
     int updateByPrimaryKeySelective(Subject record);
     int updateByPrimaryKey(Subject record);
 }
