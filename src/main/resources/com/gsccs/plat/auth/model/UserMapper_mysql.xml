@@ -7,6 +7,7 @@
 		<result column="areaid" property="areaid" jdbcType="BIGINT" />
 		<result column="account" property="account" jdbcType="VARCHAR" />
 		<result column="realname" property="realname" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
 		<result column="password" property="password" jdbcType="VARCHAR" />
 		<result column="salt" property="salt" jdbcType="VARCHAR" />
 		<result column="locked" property="locked" jdbcType="BIT" />
@@ -81,7 +82,7 @@
 	</sql>
 	
 	<sql id="Base_Column_List">
-		id, orgid,areaid, account, realname,password, salt, locked,openid,nickname,jointime,edittime
+		id, orgid,areaid, account, realname,phone,password, salt, locked,openid,nickname,jointime,edittime
 	</sql>
 	
 	<sql id="Join_Column_List">
@@ -129,6 +130,15 @@
 		where id = #{id,jdbcType=BIGINT}
 	</select>
 	
+	
+	<select id="selectByOpenid" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from plat_sys_user
+		where openid = #{openid,jdbcType=VARCHAR}
+	</select>
+	
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
 		delete from plat_sys_user
 		where id = #{id,jdbcType=BIGINT}
@@ -144,7 +154,7 @@
 	
 	
 	<insert id="insert" parameterType="com.gsccs.plat.auth.model.User">
-		insert into plat_sys_user (id, orgid, areaid,account,realname,
+		insert into plat_sys_user (id, orgid, areaid,account,realname,phone,
 		password, salt, locked,openid,nickname,jointime,edittime)
 		values (
 		#{id,jdbcType=BIGINT}, 
@@ -152,6 +162,7 @@
 		#{areaid,jdbcType=INTEGER},
 		#{account,jdbcType=VARCHAR},
 		#{realname,jdbcType=VARCHAR},
+		#{phone,jdbcType=VARCHAR}, 
 		#{password,jdbcType=VARCHAR}, 
 		#{salt,jdbcType=VARCHAR}, 
 		#{locked,jdbcType=BIT},
@@ -193,6 +204,7 @@
 		areaid = #{areaid,jdbcType=INTEGER},
 		account = #{account,jdbcType=VARCHAR},
 		realname = #{realname,jdbcType=VARCHAR},
+		phone = #{phone,jdbcType=VARCHAR},
 		password = #{password,jdbcType=VARCHAR},
 		salt = #{salt,jdbcType=VARCHAR},
 		openid = #{openid,jdbcType=VARCHAR},
@@ -216,6 +228,9 @@
 	      </if>
 	      <if test="realname != null" >
 	        realname = #{realname,jdbcType=VARCHAR},
+	      </if>
+	       <if test="phone != null" >
+	        phone = #{phone,jdbcType=VARCHAR},
 	      </if>
 	      <if test="password != null" >
 	        password = #{password,jdbcType=VARCHAR},

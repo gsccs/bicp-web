@@ -344,21 +344,21 @@ th{
 		}else if(checkedRows.length > 1) {
 			$.messager.show({
 				title : '提示',
-				msg : '只能选择一条集团客户添加其联系方式!',
+				msg : '只能选择一条记录!',
 				timeout : 3000,
 				showType : 'slide'
 			});
 		}else if(checkedRows.length < 1){
 			$.messager.show({
 				title : '提示',
-				msg : '请勾选想要添加联系方式的集团客户!',
+				msg : '请勾选记录!',
 				timeout : 3000,
 				showType : 'slide'
 			});
 		}else {
 			$.messager.show({
 				title : '提示',
-				msg : '请勾选想要添加联系方式的集团客户!',
+				msg : '请勾选记录!',
 				timeout : 3000,
 				showType : 'slide'
 			});

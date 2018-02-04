@@ -33,11 +33,13 @@ th{
 		<tr class="thclass" style="height: 40px">
 			<th style="width: 130px;">节点名称<font style="color: red">*</font></th>
 			<td>
-				<input  type="text" id="tname" name="tname"  value="${processNode.tname }" style="width:165px;" required="true" class="easyui-validatebox" missingMessage="不能为空"/>
+				<input  type="text" id="tname" name="tname"  value="${processNode.tname }" style="width:165px;" required="true" class="textbox easyui-validatebox" missingMessage="不能为空"/>
 			</td>
+		</tr>
+		<tr class="thclass" style="height: 40px">
 			<th style="width: 130px;">节点编码<font style="color: red">*</font></th>
 			<td>
-				<input  type="text" id="tcode" name="tcode"  value="${processNode.tcode }" style="width:165px;" required="true" class="easyui-validatebox" missingMessage="不能为空"/>
+				<input  type="text" id="tcode" name="tcode"  value="${processNode.tcode }" style="width:165px;" required="true" class="textbox easyui-validatebox" missingMessage="不能为空"/>
 			</td>
 		</tr>
 		<tr class="thclass" style="height: 40px">
@@ -56,10 +58,11 @@ th{
 					</c:choose>
 				</select>	
 			</td>
-		
+		</tr>
+		<tr class="thclass" style="height: 40px">
 			<th style="width: 130px;">负责人<font style="color: red">*</font></th>
 			<td>
-				<select name="isptype" style="width:165px;">
+				<select name="userid" style="width:165px;" class="textbox textbox_indent">
 					<c:forEach var="bean" items="${userList}" varStatus="status">
 						<c:choose>
 							<c:when test="${bean.id== processNode.userid}">
@@ -77,12 +80,12 @@ th{
 		
 		<tr class="thclass" style="height: 40px">
 			<th style="width: 130px;">备注说明</th>
-			<td colspan="3"><textarea rows="" cols="" name="remark" style="width: 300px;height:70px;">${processNode.remark}</textarea>  </td>
+			<td ><textarea id="remark" rows="" cols="" name="remark" style="width: 300px;height:70px;">${processNode.remark}</textarea>  </td>
 		</tr>
 		
 		<tr class="thclass" style="height: 40px">
 			<th style="width: 130px;">排序</th>
-			<td colspan="3"><input  type="text" id="tname" name="tname"  value="${processNode.ordernum }" style="width:165px;" required="true" class="easyui-validatebox" missingMessage="集团编码不能为空"/>  </td>
+			<td colspan="3"><input  type="text" id="ordernum" name="ordernum"  value="${processNode.ordernum }" style="width:165px;" required="true" class="textbox easyui-validatebox" missingMessage="不能为空"/>  </td>
 		</tr>
 	</table>
 	</form>

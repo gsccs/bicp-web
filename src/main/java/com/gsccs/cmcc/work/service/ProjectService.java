@@ -16,10 +16,10 @@ public interface ProjectService {
 
 	public List<Project> find(Project param, String order, int currPage,
 			int pageSize);
-
-	public List<Project> find(Project param);
 	
 	public int count(Project param);
+	
+	public List<Project> find(Project param);
 	
 	public boolean isExist(String ispcode);
 }

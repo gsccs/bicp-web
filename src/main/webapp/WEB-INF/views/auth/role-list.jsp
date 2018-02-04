@@ -82,9 +82,16 @@ $('#list_data').datagrid({
 	rownumbers : true,//行号 
 	columns : [ [ {
 		field : 'id',
-		title : '编号',
+		title : '选择',
 		width : 150,
 		checkbox : true
+	},{
+		field : 'id_',
+		title : '编号',
+		width : 100,
+		formatter:function(value,row){
+	    	 return row.id;
+		}
 	},{
 		field : 'code',
 		title : '角色标识',

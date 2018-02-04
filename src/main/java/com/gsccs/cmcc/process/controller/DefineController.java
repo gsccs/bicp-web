@@ -106,8 +106,8 @@ public class DefineController {
 	@RequestMapping(value = "/def/dataform", method = RequestMethod.GET)
 	public String showDefForm(String id, Model model) {
 		if (null != id && id.trim().length() > 0) {
-			Define processdef = processService.getProcessDef(id);
-			model.addAttribute("processdef", processdef);
+			Define processDef = processService.getProcessDef(id);
+			model.addAttribute("processDef", processDef);
 		}
 		return "process/def-form";
 	}
@@ -117,7 +117,7 @@ public class DefineController {
 	public String showNodeForm(Integer id,String defid, Model model) {
 		if (null != id) {
 			Node node = processService.getProcessNode(id);
-			model.addAttribute("processnode", node);
+			model.addAttribute("processNode", node);
 		}
 		model.addAttribute("defid", defid);
 		return "process/node-form";
@@ -151,6 +151,22 @@ public class DefineController {
 		} else {
 			msg.setSuccess(false);
 			msg.setMsg("记录删除失败!");
+		}
+		return msg;
+	}
+	
+	
+	@RequestMapping(value = "/node/save", method = RequestMethod.POST)
+	@ResponseBody
+	public JsonMsg nodeSave(Node param) {
+		JsonMsg msg = new JsonMsg();
+		if (null != param) {
+			processService.addProcessNode(param);
+			msg.setSuccess(true);
+			msg.setMsg("保存成功!");
+		} else {
+			msg.setSuccess(false);
+			msg.setMsg("保存失败!");
 		}
 		return msg;
 	}

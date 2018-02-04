@@ -14,6 +14,7 @@ public interface UserMapper {
 	int deleteByExample(UserExample example);
 
 	int deleteByPrimaryKey(Long id);
+	
 
 	int insert(User record);
 
@@ -24,7 +25,7 @@ public interface UserMapper {
 	List<User> selectByRoleCode(String code);
 	
 	User selectByPrimaryKey(Long id);
-
+	User selectByOpenid(String openid);
 	
 	int updateByExampleSelective(@Param("record") User record,
 			@Param("example") UserExample example);

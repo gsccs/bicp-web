@@ -26,14 +26,15 @@
 <body>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/static/weui/js/blogarticlelist.js"></script>
 	<script type="text/javascript">
-	    var username = '${member.id}';
+	    var userid = '${wxUser.id}';
+	    var openid = '${openid}';
 	</script>
 
 	<div class="blog_main">
 	      <div class="blog_top_wrap">
 	        <div class="blog_top">
 	        	<i id="menu_J" class="iconfont icon_l"></i>
-	          	<h2 class="blog_top_t">党建服务</h2>
+	          	<h2 class="blog_top_t">个人中心</h2>
 	        </div>
 	      </div>
 	      <div class="main_list">
@@ -45,7 +46,7 @@
 	          <dd class="clearfix">
 	            <ul class="personal_list">
 	            	<c:if test="${empty member.realid }">
-	              	<li><span><a href="${wxapp.domain }/web/auth.html?openid=${member.id}" class="per_user">党员认证</a></span></li>
+	              	<li><span><a href="${pageContext.request.contextPath}/web/wxa2e35b9927db7ae8/bind?openid=${openid}" class="per_user">党员认证</a></span></li>
 	              	</c:if>
 	              	<c:if test="${not empty member.realid }">
 	              	<li><span><a href="${wxapp.domain }/web/auth.html?openid=${member.id}" class="per_user">已认证</a></span></li>
@@ -53,15 +54,15 @@
 	            </ul>
 	          </dd>
 	        </dl>
-	        <!-- <div class="blog_wrap" page="2">
-				<div class="total_blog">
-	            	<label><span>我的收藏</span><em>（0）</em></label>
-	            	<i class="iconfont arrow_down"></i>
-	          	</div>
-	        </div> -->
 	        <div class="blog_wrap" page="2">
 				<div class="total_blog">
-	            	<label><span><a href="${wxApp.domain }/web/courses.html?openid=${member.id}">我的课程</a></span><em>（0）</em></label>
+	            	<label><span><a href="${pageContext.request.contextPath}/web/wxa2e35b9927db7ae8/bills?openid=${openid}">我的帐单</a></span><em>（0）</em></label>
+	            	<i class="iconfont arrow_down"></i>
+	          	</div>
+	        </div>
+	        <div class="blog_wrap" page="2">
+				<div class="total_blog">
+	            	<label><span><a href="${pageContext.request.contextPath}/web/wxa2e35b9927db7ae8/projects?openid=${openid}">我的合同</a></span><em>（0）</em></label>
 	            	<i class="iconfont arrow_down"></i>
 	          	</div>
 	        </div>
@@ -73,7 +74,7 @@
 	        </div> -->
 	        <div class="blog_wrap" page="2">
 				<div class="total_blog">
-	            	<label><span><a href="${wxApp.domain }/web/gbQuery.html">学习笔记</a></span><em>（0）</em></label>
+	            	<label><span><a href="${wxApp.domain }/web/wxa2e35b9927db7ae8/gbQuery.html">代办任务</a></span><em>（0）</em></label>
 	            	<i class="iconfont arrow_down"></i>
 	          	</div>
 	        </div>
@@ -87,7 +88,7 @@
 			</div>
 		</div>
 	
-		<jsp:include page="${pageContext.request.contextPath}/widget/sidebar.jsp"/>
+		
 	</div>   
 
 	<div class="backToTop" style="display: none;"><img src="${pageContext.request.contextPath}/static/weui/images/iconfont-up.png" alt="img"></div>

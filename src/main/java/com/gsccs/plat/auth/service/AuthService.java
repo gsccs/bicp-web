@@ -12,9 +12,11 @@ import java.util.Set;
  */
 public interface AuthService {
 
-
-    public Authorization createAuthorization(Authorization authorization);
-    public Authorization updateAuthorization(Authorization authorization);
+	
+	public Authorization setAuth(Authorization param);
+	
+    public Authorization createAuthorization(Authorization param);
+    public Authorization updateAuthorization(Authorization param);
     public void deleteAuthorization(Long authorizationId);
 
     public Authorization findOne(Long authorizationId);

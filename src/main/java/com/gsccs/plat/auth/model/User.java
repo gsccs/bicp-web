@@ -14,6 +14,7 @@ public class User implements Serializable {
 	private String account; 	// 用户登录名
 	private String password; 	// 密码
 	private String realname; 	// 用户名称
+	private String phone; 		// 用户手机号
 	private Long orgid; 		// 所属部门
 	private Integer areaid; 	//所在地域
 	private String openid; 		
@@ -131,6 +132,14 @@ public class User implements Serializable {
 
 	public void setOpenid(String openid) {
 		this.openid = openid;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	@Override

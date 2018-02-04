@@ -20,6 +20,13 @@ public interface UserService {
     /**
      * 微信用户同步
      * @param appid
+     * @param openid
+     */
+    public User synWxMpUser(String appid,String openid);
+    
+    /**
+     * 微信用户同步全量
+     * @param appid
      */
     public void synWxMpUserList(String appid);
     
@@ -50,6 +57,14 @@ public interface UserService {
      * @return
      */
     public User findByAccount(String account);
+    
+    /**
+     * 根据openid获取用户
+     * @param openid
+     * @return
+     */
+    public User findByOpenid(String openid);
+    
     
     /**
      * 根据角色查找用户

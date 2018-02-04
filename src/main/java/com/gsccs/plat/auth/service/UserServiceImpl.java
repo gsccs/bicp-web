@@ -161,6 +161,37 @@ public class UserServiceImpl implements UserService {
 		return userMapper.selectByRoleCode(rolecode);
 	}
 
+	
+	@Override
+	public User synWxMpUser(String appid,String openid) {
+		//openid 为空，取消同步
+		if (StringUtils.isEmpty(openid)){
+			return null;
+		}
+		
+		//系统中不存在 新增
+		User user = userMapper.selectByOpenid(openid);
+		if (null != user){
+			return user;
+		}
+		WxMpService wxMpService = new WxMpServiceImpl();
+		WxMpConfigStorage wxMpConfigStorage = wxAppService.getMpConfig(appid);
+		wxMpService.setWxMpConfigStorage(wxMpConfigStorage);
+		try {
+			WxMpUser wxMpuser = wxMpService.getUserService().userInfo(openid,Constants.lang);
+			user = new User();
+			user.setNickname(wxMpuser.getNickname());
+			user.setAccount(openid);
+			user.setOpenid(openid);
+			userMapper.insert(user);
+		} catch (WxErrorException e) {
+			e.printStackTrace();
+		}
+		
+		return user;
+		
+	}
+	
 	@Override
 	public void synWxMpUserList(String appid) {
 		WxMpService wxMpService = new WxMpServiceImpl();
@@ -198,6 +229,11 @@ public class UserServiceImpl implements UserService {
 		} catch (WxErrorException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public User findByOpenid(String openid) {
+		return userMapper.selectByOpenid(openid);
 	}
 
 }

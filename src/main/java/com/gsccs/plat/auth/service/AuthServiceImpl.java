@@ -1,7 +1,6 @@
 package com.gsccs.plat.auth.service;
 
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -11,8 +10,8 @@ import org.springframework.stereotype.Service;
 import com.gsccs.plat.auth.dao.AuthorizationMapper;
 import com.gsccs.plat.auth.model.Authorization;
 import com.gsccs.plat.auth.model.AuthorizationExample;
-import com.gsccs.plat.auth.model.User;
 import com.gsccs.plat.auth.model.AuthorizationExample.Criteria;
+import com.gsccs.plat.auth.model.User;
 
 /**
  * <p>
@@ -20,7 +19,7 @@ import com.gsccs.plat.auth.model.AuthorizationExample.Criteria;
  * <p>
  * Date: 14-1-28
  * <p>
- * Version: 1.0
+ * Version: 1.0	
  */
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -50,7 +49,7 @@ public class AuthServiceImpl implements AuthService {
 		
 		List<Authorization> authlist = authorizationMapper.selectByExample(
 				aExample);
-		System.out.println("authlist:"+authlist.size());
+		//System.out.println("authlist:"+authlist.size());
 		if (authlist == null || authlist.size()<=0) {// 如果数据库中不存在相应记录 直接新增
 			authorizationMapper.insert(authorization);
 			return authorizationMapper
@@ -59,14 +58,14 @@ public class AuthServiceImpl implements AuthService {
 
 		Authorization dbAuthorization  = authlist.get(0);
 		if (dbAuthorization.equals(authorization)) {// 如果是同一条记录直接更新即可
-			System.out.println("是同一条记录直接更新");
+			//System.out.println("是同一条记录直接更新");
 			authorizationMapper.updateByPrimaryKey(dbAuthorization);
 			return authorizationMapper
 					.selectByPrimaryKey(authorization.getId());
 		}
 
 		for (Long roleId : authorization.getRoleIdList()) {// 否则合并
-			System.out.println("合并");
+			//System.out.println("合并");
 			if (!dbAuthorization.getRoleIdList().contains(roleId)) {
 				dbAuthorization.getRoleIdList().add(roleId);
 			}
@@ -77,7 +76,7 @@ public class AuthServiceImpl implements AuthService {
 			return dbAuthorization;
 		}
 		// 否则更新
-		System.out.println("否则更新");
+		//System.out.println("否则更新");
 		authorizationMapper.updateByPrimaryKey(dbAuthorization);
 		return authorizationMapper.selectByPrimaryKey(authorization.getId());
 	}
@@ -163,6 +162,29 @@ public class AuthServiceImpl implements AuthService {
 		Set<String> perset = roleService.findPermissions(authlist.get(0).getRoleIdList()
 				.toArray(new Long[0]));
 		return perset;
+	}
+
+	@Override
+	public Authorization setAuth(Authorization authorization) {
+		
+		AuthorizationExample aExample = new AuthorizationExample();
+		Criteria criteria = aExample.createCriteria();
+		criteria.andAppIdEqualTo(authorization.getAppId());
+		criteria.andUserIdEqualTo(authorization.getUserId());
+		
+		List<Authorization> authlist = authorizationMapper.selectByExample(
+				aExample);
+		
+		if (authlist == null || authlist.size()<=0) {// 如果数据库中不存在相应记录 直接新增
+			authorizationMapper.insert(authorization);
+			return authorization;
+		}else{
+			Authorization dbAuthorization = authlist.get(0);
+			dbAuthorization.setRoleIdList(null);
+			dbAuthorization.setRoleIds(authorization.getRoleIds());
+			authorizationMapper.updateByPrimaryKey(dbAuthorization);
+			return dbAuthorization;
+		}
 	}
 
 }
