@@ -52,7 +52,7 @@ public class ContractController {
 	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public String list(ModelMap map, HttpServletRequest request) {
-		return "contract/contract-list";
+		return "projects/contract-list";
 	}
 
 	@RequestMapping(value = "/datagrid")
@@ -85,7 +85,7 @@ public class ContractController {
 		}else{
 			
 		}
-		return "contract/contract-form";
+		return "projects/contract-form";
 	}
 	
 	

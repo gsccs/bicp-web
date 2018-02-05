@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gsccs.cmcc.work.dao.ContractMapper" >
+  <resultMap id="BaseResultMap" type="com.gsccs.cmcc.work.model.Contract" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="pcode" property="pcode" jdbcType="VARCHAR" />
+    <result column="mchno" property="mchno" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    
+    <result column="sellerid" property="sellerid" jdbcType="VARCHAR" />
+    <result column="buyerid" property="buyerid" jdbcType="VARCHAR" />
+    <result column="storerid" property="storerid" jdbcType="VARCHAR" />
+    <result column="officerid" property="officerid" jdbcType="VARCHAR" />
+    <result column="agentid" property="agentid" jdbcType="VARCHAR" />
+    
+    <result column="addtime" property="addtime" jdbcType="TIMESTAMP" />
+    <result column="endtime" property="endtime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="ordernum" property="ordernum" jdbcType="INTEGER" />
+    <!-- 查询用 -->
+    
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  
+  <sql id="Base_Column_List" >
+    id, pcode,mchno, title, buyserid,sellerid,storerid,officerid,agentid,addtime,endtime,status,remark,ordernum
+  </sql>
+  
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gsccs.cmcc.work.model.ContractExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from bicp_contract
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  
+  	<select id="selectPageByExample" resultMap="BaseResultMap"
+		parameterType="com.gsccs.cmcc.work.model.ContractExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		FROM bicp_contract 
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+		limit ${skip},${pageSize}
+	</select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from bicp_contract
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from bicp_contract
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gsccs.cmcc.work.model.ContractExample" >
+    delete from bicp_contract
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gsccs.cmcc.work.model.Contract" >
+    insert into bicp_contract (id, pcode,mchno, title, buyserid,sellerid,storerid,officerid,agentid,addtime,endtime, status,remark,ordernum)
+    values (#{id,jdbcType=VARCHAR}, 
+    #{pcode,jdbcType=VARCHAR}, 
+     	#{mchno,jdbcType=VARCHAR}, 
+     	#{title,jdbcType=VARCHAR}, 
+        #{buyerid,jdbcType=VARCHAR}, 
+        #{sellerid,jdbcType=VARCHAR}, 
+        #{storerid,jdbcType=VARCHAR}, 
+        #{officerid,jdbcType=VARCHAR}, 
+        #{agentid,jdbcType=VARCHAR}, 
+        #{addtime,jdbcType=TIMESTAMP}, 
+        #{endtime,jdbcType=TIMESTAMP}, 
+        #{status,jdbcType=VARCHAR},
+        #{remark,jdbcType=VARCHAR},
+        #{ordernum,jdbcType=INTEGER}
+      )
+  </insert>
+  
+  <select id="countByExample" parameterType="com.gsccs.cmcc.work.model.ContractExample" resultType="java.lang.Integer" >
+    select count(*) from bicp_contract
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  
+  <update id="updateByExample" parameterType="map" >
+    update bicp_contract
+    set id = #{record.id,jdbcType=VARCHAR},
+      mchno = #{record.mchno,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      buyerid =#{record.buyerid,jdbcType=VARCHAR}, 
+      sellerid = #{record.sellerid,jdbcType=VARCHAR}, 
+      storerid = #{record.storerid,jdbcType=VARCHAR}, 
+      officerid = #{record.officerid,jdbcType=VARCHAR}, 
+      agentid = #{record.agentid,jdbcType=VARCHAR}, 
+      addtime = #{record.addtime,jdbcType=TIMESTAMP}, 
+      endtime = #{record.endtime,jdbcType=TIMESTAMP}, 
+      remark = #{record.remark,jdbcType=VARCHAR},
+      ordernum = #{record.ordernum,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  
+  
+  <update id="updateByPrimaryKey" parameterType="com.gsccs.cmcc.work.model.Contract" >
+    update bicp_contract
+    set mchno = #{mchno,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      buyerid =#{buyerid,jdbcType=VARCHAR}, 
+      sellerid = #{sellerid,jdbcType=VARCHAR}, 
+      storerid = #{storerid,jdbcType=VARCHAR}, 
+      officerid = #{officerid,jdbcType=VARCHAR}, 
+      agentid = #{agentid,jdbcType=VARCHAR}, 
+      addtime = #{addtime,jdbcType=TIMESTAMP}, 
+      endtime = #{endtime,jdbcType=TIMESTAMP}, 
+      remark = #{remark,jdbcType=VARCHAR},
+      ordernum = #{ordernum,jdbcType=INTEGER},
+      status = #{status,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
