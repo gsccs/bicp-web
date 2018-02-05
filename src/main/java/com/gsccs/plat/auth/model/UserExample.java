@@ -217,6 +217,11 @@ public class UserExample extends BaseExample {
 			return (Criteria) this;
 		}
 		
+		public Criteria andPhoneEqualTo(String value) {
+			addCriterion("phone =", value, "phone");
+			return (Criteria) this;
+		}
+		
 		public Criteria andOpenidEqualTo(String value) {
 			addCriterion("openid =", value, "openid");
 			return (Criteria) this;

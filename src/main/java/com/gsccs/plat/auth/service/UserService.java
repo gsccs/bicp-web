@@ -65,6 +65,13 @@ public interface UserService {
      */
     public User findByOpenid(String openid);
     
+    /**
+     * 根据phone获取用户
+     * @param phone
+     * @return
+     */
+    public User findByPhone(String phone);
+    
     
     /**
      * 根据角色查找用户

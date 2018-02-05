@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.gsccs.cmcc.work.dao.ContractMapper;
 import com.gsccs.cmcc.work.model.Contract;
 import com.gsccs.cmcc.work.model.ContractExample;
-import com.gsccs.cmcc.work.model.TaskExample;
+import com.gsccs.plat.auth.model.User;
 import com.gsccs.plat.auth.service.UserService;
 
 @Service
@@ -27,7 +27,42 @@ public class ContractServiceImpl implements ContractService {
 			if (StringUtils.isEmpty(param.getId())){
 				param.setId(UUID.randomUUID().toString());
 			}
+			
+			User seller = userService.findByPhone(param.getSellertel());
+			if (null!=seller){
+				param.setSellerid(seller.getId());
+				param.setSellername(seller.getRealname());
+			}
+			User buyer = userService.findByPhone(param.getBuyertel());
+			if (null!=buyer){
+				param.setBuyerid(buyer.getId());
+				param.setBuyername(buyer.getRealname());
+			}
+			User storer = userService.findByPhone(param.getStorertel());
+			if (null!=storer){
+				param.setStorerid(storer.getId());
+				param.setStorername(storer.getRealname());
+			}
+			
+			User officer = userService.findByPhone(param.getOfficertel());
+			if (null!=officer){
+				param.setOfficerid(officer.getId());
+				param.setOfficername(officer.getRealname());
+			}
+			
+			User agenter = userService.findByPhone(param.getAgenttel());
+			if (null!=agenter){
+				param.setAgentid(agenter.getId());
+				param.setAgentname(agenter.getRealname());
+			}
 			contractMapper.insert(param);
+		}
+	}
+	
+	@Override
+	public void update(Contract param) {
+		if (null != param) {
+			contractMapper.updateByPrimaryKey(param);
 		}
 	}
 
@@ -68,17 +103,7 @@ public class ContractServiceImpl implements ContractService {
 	}
 
 	@Override
-	public void update(Contract contact) {
-		if (null != contact) {
-			contractMapper.updateByPrimaryKey(contact);
-		}
-	}
-
-	@Override
 	public void del(String id) {
-		TaskExample example = new TaskExample();
-		TaskExample.Criteria c = example.createCriteria();
-		c.andPidEqualTo(id);
 		contractMapper.deleteByPrimaryKey(id);
 	}
 

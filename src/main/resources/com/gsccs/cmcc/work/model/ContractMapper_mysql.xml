@@ -7,11 +7,11 @@
     <result column="mchno" property="mchno" jdbcType="VARCHAR" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     
-    <result column="sellerid" property="sellerid" jdbcType="VARCHAR" />
-    <result column="buyerid" property="buyerid" jdbcType="VARCHAR" />
-    <result column="storerid" property="storerid" jdbcType="VARCHAR" />
-    <result column="officerid" property="officerid" jdbcType="VARCHAR" />
-    <result column="agentid" property="agentid" jdbcType="VARCHAR" />
+    <result column="sellerid" property="sellerid" jdbcType="BIGINT" />
+    <result column="buyerid" property="buyerid" jdbcType="BIGINT" />
+    <result column="storerid" property="storerid" jdbcType="BIGINT" />
+    <result column="officerid" property="officerid" jdbcType="BIGINT" />
+    <result column="agentid" property="agentid" jdbcType="BIGINT" />
     
     <result column="addtime" property="addtime" jdbcType="TIMESTAMP" />
     <result column="endtime" property="endtime" jdbcType="TIMESTAMP" />
@@ -19,7 +19,17 @@
     <result column="remark" property="remark" jdbcType="VARCHAR" />
     <result column="ordernum" property="ordernum" jdbcType="INTEGER" />
     <!-- 查询用 -->
+    <result column="sellertel" property="sellertel" jdbcType="VARCHAR" />
+    <result column="buyertel" property="buyertel" jdbcType="VARCHAR" />
+    <result column="storertel" property="storertel" jdbcType="VARCHAR" />
+    <result column="officertel" property="officertel" jdbcType="VARCHAR" />
+    <result column="agenttel" property="agenttel" jdbcType="VARCHAR" />
     
+    <result column="sellername" property="sellername" jdbcType="VARCHAR" />
+    <result column="buyername" property="buyername" jdbcType="VARCHAR" />
+    <result column="storername" property="storername" jdbcType="VARCHAR" />
+    <result column="officername" property="officername" jdbcType="VARCHAR" />
+    <result column="agentname" property="agentname" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -81,7 +91,7 @@
   </sql>
   
   <sql id="Base_Column_List" >
-    id, pcode,mchno, title, buyserid,sellerid,storerid,officerid,agentid,addtime,endtime,status,remark,ordernum
+    id, pcode,mchno, title, buysertel,sellertel,storertel,officertel,agenttel,addtime,endtime,status,remark,ordernum
   </sql>
   
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gsccs.cmcc.work.model.ContractExample" >
@@ -133,16 +143,16 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.gsccs.cmcc.work.model.Contract" >
-    insert into bicp_contract (id, pcode,mchno, title, buyserid,sellerid,storerid,officerid,agentid,addtime,endtime, status,remark,ordernum)
+    insert into bicp_contract (id, pcode,mchno, title, buysertel,sellertel,storertel,officertel,agenttel,addtime,endtime, status,remark,ordernum)
     values (#{id,jdbcType=VARCHAR}, 
-    #{pcode,jdbcType=VARCHAR}, 
+    	#{pcode,jdbcType=VARCHAR}, 
      	#{mchno,jdbcType=VARCHAR}, 
      	#{title,jdbcType=VARCHAR}, 
-        #{buyerid,jdbcType=VARCHAR}, 
-        #{sellerid,jdbcType=VARCHAR}, 
-        #{storerid,jdbcType=VARCHAR}, 
-        #{officerid,jdbcType=VARCHAR}, 
-        #{agentid,jdbcType=VARCHAR}, 
+        #{buyertel,jdbcType=VARCHAR}, 
+        #{sellertel,jdbcType=VARCHAR}, 
+        #{storertel,jdbcType=VARCHAR}, 
+        #{officertel,jdbcType=VARCHAR}, 
+        #{agenttel,jdbcType=VARCHAR}, 
         #{addtime,jdbcType=TIMESTAMP}, 
         #{endtime,jdbcType=TIMESTAMP}, 
         #{status,jdbcType=VARCHAR},
@@ -163,11 +173,11 @@
     set id = #{record.id,jdbcType=VARCHAR},
       mchno = #{record.mchno,jdbcType=VARCHAR},
       title = #{record.title,jdbcType=VARCHAR},
-      buyerid =#{record.buyerid,jdbcType=VARCHAR}, 
-      sellerid = #{record.sellerid,jdbcType=VARCHAR}, 
-      storerid = #{record.storerid,jdbcType=VARCHAR}, 
-      officerid = #{record.officerid,jdbcType=VARCHAR}, 
-      agentid = #{record.agentid,jdbcType=VARCHAR}, 
+      buyertel =#{record.buyertel,jdbcType=VARCHAR}, 
+      sellertel = #{record.sellertel,jdbcType=VARCHAR}, 
+      storertel = #{record.storertel,jdbcType=VARCHAR}, 
+      officertel = #{record.officertel,jdbcType=VARCHAR}, 
+      agenttel = #{record.agenttel,jdbcType=VARCHAR}, 
       addtime = #{record.addtime,jdbcType=TIMESTAMP}, 
       endtime = #{record.endtime,jdbcType=TIMESTAMP}, 
       remark = #{record.remark,jdbcType=VARCHAR},
@@ -183,11 +193,11 @@
     update bicp_contract
     set mchno = #{mchno,jdbcType=VARCHAR},
       title = #{title,jdbcType=VARCHAR},
-      buyerid =#{buyerid,jdbcType=VARCHAR}, 
-      sellerid = #{sellerid,jdbcType=VARCHAR}, 
-      storerid = #{storerid,jdbcType=VARCHAR}, 
-      officerid = #{officerid,jdbcType=VARCHAR}, 
-      agentid = #{agentid,jdbcType=VARCHAR}, 
+      buyertel =#{buyertel,jdbcType=VARCHAR}, 
+      sellertel = #{sellertel,jdbcType=VARCHAR}, 
+      storertel = #{storertel,jdbcType=VARCHAR}, 
+      officertel = #{officertel,jdbcType=VARCHAR}, 
+      agenttel = #{agenttel,jdbcType=VARCHAR}, 
       addtime = #{addtime,jdbcType=TIMESTAMP}, 
       endtime = #{endtime,jdbcType=TIMESTAMP}, 
       remark = #{remark,jdbcType=VARCHAR},

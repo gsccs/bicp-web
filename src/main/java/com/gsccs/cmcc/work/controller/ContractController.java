@@ -60,10 +60,10 @@ public class ContractController {
 	public Datagrid list(ModelMap map,
 			@RequestParam(defaultValue = " ordernum  ") String order,
 			@RequestParam(defaultValue = "1") int page,
-			@RequestParam(defaultValue = "10") int rows, Contract contact,
+			@RequestParam(defaultValue = "10") int rows, Contract param,
 			HttpServletRequest request) {
-		List<Contract> contactList = contractService.find(contact, order, page, rows);
-		int count = contractService.count(contact);
+		List<Contract> contactList = contractService.find(param, order, page, rows);
+		int count = contractService.count(param);
 		Datagrid datagrid = new Datagrid();
 		datagrid.setRows(contactList);
 		datagrid.setTotal(Long.valueOf(count));
@@ -71,7 +71,7 @@ public class ContractController {
 	}
 
 	/**
-	 * 通讯录信息表单
+	 * 合同表单
 	 * 
 	 * @param id
 	 * @param map
@@ -79,7 +79,7 @@ public class ContractController {
 	 */
 	@RequestMapping(value = "/dataform", method = RequestMethod.GET)
 	public String dataform(String id,Model model) {
-		if(id != null && !id.equals("")){
+		if(StringUtils.isNotEmpty(id)){
 			Contract ct = contractService.get(id);
 			model.addAttribute("contract",ct );
 		}else{
@@ -89,9 +89,14 @@ public class ContractController {
 	}
 	
 	
+	/**
+	 * 保存合同信息，同时需要判断相关人员是否关注微信公众号并且完成认证
+	 * @param param
+	 * @return
+	 */
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	@ResponseBody
-	public JsonMsg save(Contract param,HttpServletRequest request) {
+	public JsonMsg save(Contract param) {
 		JsonMsg json = new JsonMsg();
 		if (null != param) {
 			if (StringUtils.isEmpty(param.getId())){
@@ -110,7 +115,7 @@ public class ContractController {
 
 
 	/**
-	 * 通讯录删除
+	 * 合同删除
 	 * @param id
 	 * @param redirectAttributes
 	 * @return
@@ -123,7 +128,7 @@ public class ContractController {
 			contractService.del(id);
 		}
 		json.setSuccess(true);
-		json.setMsg("通讯录删除成功！");
+		json.setMsg("删除成功！");
 		return json;
 	}
 

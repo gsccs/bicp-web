@@ -137,6 +137,14 @@ public class UserServiceImpl implements UserService {
 			if (StringUtils.isNotEmpty(param.getAccount())) {
 				criteria.andAccountEqualTo(param.getAccount());
 			}
+			
+			if (StringUtils.isNotEmpty(param.getPhone())) {
+				criteria.andPhoneEqualTo(param.getPhone());
+			}
+			
+			if (StringUtils.isNotEmpty(param.getOpenid())) {
+				criteria.andOpenidEqualTo(param.getOpenid());
+			}
 
 			if (null != param.getOrgid()) {
 				criteria.andOrganizationIdEqualTo(param.getOrgid());
@@ -234,6 +242,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User findByOpenid(String openid) {
 		return userMapper.selectByOpenid(openid);
+	}
+
+	@Override
+	public User findByPhone(String phone) {
+		return userMapper.selectByPhone(phone);
 	}
 
 }

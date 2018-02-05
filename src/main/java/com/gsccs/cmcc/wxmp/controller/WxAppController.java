@@ -41,9 +41,7 @@ public class WxAppController{
 	public String list(WxApp param,
 			@RequestParam(defaultValue = "1") int currPage,
 			@RequestParam(defaultValue = "10") int pageSize,
-			@RequestParam(defaultValue = "") String order, ModelMap map,
-			HttpServletRequest request, HttpServletResponse response) {
-
+			@RequestParam(defaultValue = "") String order, ModelMap map) {
 		List<WxApp> wxAppList = wxAppService.find(param, order, currPage,
 				pageSize, false);
 		int totalCount = wxAppService.count(param);
@@ -88,8 +86,7 @@ public class WxAppController{
 	 * @return
 	 */
 	@RequestMapping(value = "/editDo", method = RequestMethod.POST)
-	public String editDo(WxApp wxApp, ModelMap map, HttpServletRequest request,
-			HttpServletResponse response) {
+	public String editDo(WxApp wxApp, ModelMap map) {
 		String oper = "修改";
 		if (null==wxApp || StringUtils.isEmpty(wxApp.getId())){
 			map.put("msg", "保存失败，数据有误!");

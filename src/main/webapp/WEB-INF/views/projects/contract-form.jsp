@@ -29,51 +29,47 @@ th{
 <form id="contract_form" action="" method="post">
 	<table cellspacing="0" cellpadding="0">
 		<tr class="thclass" style="height: 40px">
-			<th style="width: 130px;">集团编码<font style="color: red">*</font></th>
+			<th style="width: 130px;">合同编号<font style="color: red">*</font></th>
 			<td><input type="text" id="ispcode" name="ispcode" class="easyui-validatebox"
-					readonly="readonly" value="${corp.ispcode }" />
+					readonly="readonly" value="${contract.ispcode }" />
 			</td>
 		</tr>
 		<tr class="thclass" style="height: 40px">
-			<th style="width: 130px;">集团名称<font style="color: red">*</font></th>
+			<th style="width: 130px;">合同名称<font style="color: red">*</font></th>
 			<td><input type="text" id="title" name="title" class="easyui-validatebox"
 					required="true" missingMessage="不能为空"
-					value="${corp.title }" />
+					value="${contract.title }" />
 			</td>
 		</tr>
 		<tr class="thclass" style="height: 40px">
-			<th style="width: 130px;">联系人</th>
-			<td><input type="text" id="linker" name="linker" maxlength="200"
-					value="${corp.linker }" />
+			<th style="width: 130px;">卖方手机号</th>
+			<td><input type="text" id="sellertel" name="sellertel" maxlength="200" value="${contract.sellertel }" />
 			</td>
 		</tr>
 		<tr class="thclass" style="height: 40px">
-			<th style="width: 130px;">联系电话</th>
-			<td><input type="text" id="phone" name="phone" maxlength="200" value="${corp.phone }" />
-			</td>
-		</tr>
-		<tr class="thclass" style="height: 40px">
-			<th style="width: 130px;">详细地址</th>
-			<td><input type="text" id="address" name="address" value="${corp.address }" maxlength="200"/>
-			</td>
-		</tr>
-		<tr class="thclass" style="height: 40px">
-			<th style="width: 130px;">所在地域<font style="color: red">*</font></th>
-			<td><input type="text" id="areaid" name="acode" class="easyui-validatebox" value="${corp.acode }" />
+			<th style="width: 130px;">买方手机号</th>
+			<td><input type="text" id="buyertel" name="buyertel" maxlength="200" value="${contract.buyertel }" />
 			</td>
 		</tr>
 		
 		<tr class="thclass" style="height: 40px">
-			<th style="width: 130px;">客户经理<font style="color: red">*</font></th>
-			<td>
-				<select id="amuserid" name="amuserid">
-					<c:forEach items="${userList }" var="user">
-					<option value="">----请选择----</option>
-					<option value="${user.id }" <c:if test="${user.id==corp.amuserid }">selected="selected"</c:if>>${user.title }</option>
-					</c:forEach>
-				</select>
+			<th style="width: 130px;">经纪人手机号</th>
+			<td><input type="text" id="agenttel" name="agenttel" value="${contract.agenttel }" maxlength="200"/>
 			</td>
 		</tr>
+		
+		<tr class="thclass" style="height: 40px">
+			<th style="width: 130px;">店东手机号</th>
+			<td><input type="text" id="storetel" name="storetel" value="${contract.storetel }" maxlength="200"/>
+			</td>
+		</tr>
+		
+		<tr class="thclass" style="height: 40px">
+			<th style="width: 130px;">专员手机号</th>
+			<td><input type="text" id="officertel" name="officertel" value="${contract.officertel }" maxlength="200"/>
+			</td>
+		</tr>
+		
 	</table>
 </form>
 </body>

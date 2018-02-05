@@ -98,11 +98,11 @@ th{
 				title : '客户经理',
 				width : 100
 			},{
-				field : 'linker',
+				field : 'sellerid',
 				title : '联系人',
 				width : 100
 			}, {
-				field : 'phone',
+				field : 'buyerid',
 				title : '联系电话',
 				width : 150
 			},{
